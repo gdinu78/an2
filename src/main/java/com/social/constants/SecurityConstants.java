@@ -11,7 +11,7 @@ public class SecurityConstants {
     public static final String SIGN_UP_URL = "/users/signup";
     public static final String RESOURCES_URL = "/assets/**";
     public static final String NAVITEMS_URL = "/getNavItems";
-    public static final String LANDINGPAGE_URL = "/**";
+    public static final String LANDINGPAGE_URL = "/";
     public static final String HOME_URL = "/home";
     public static final String REGISTER_URL = "/register";
     public static final String LOGIN_URL = "/login";
@@ -24,5 +24,6 @@ public class SecurityConstants {
     public static final String ANGULAR_SCRIPTS = "/scripts.js";
     public static final String ANGULAR_STYLES = "/styles.js";
     public static final String ANGULAR_VENDOR = "/vendor.js";
+    public static final String ANGULAR_MAIN_PAGES = "/main-pages-pages-module.js";
 
 }
