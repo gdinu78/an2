@@ -25,34 +25,32 @@ public class RespHelper {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public void sendOk(HttpServletResponse resp, Object body){
-        Map resMap = new HashMap();
-        resMap.put("rc", 0);
-        resMap.put("message", "OK");
-        resMap.put("results",body);
-        JSONObject jsonObject = new JSONObject(resMap);
+        JSONObject resJson = new JSONObject();
+        resJson.put("rc", 0);
+        resJson.put("message", "OK");
+        resJson.put("results",body);
+        resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
         try {
-            resp.getWriter().print(jsonObject);
+            resp.getWriter().print(resJson);
             String headersInfo = getHeadersInfo(resp);
-            log.warn("Sent OK response with headers: " + headersInfo + " at time: " + LocalDateTime.now());
+            log.info("Sent OK response with headers: " + headersInfo + " at time: " + LocalDateTime.now());
         } catch (IOException e) {
-            e.printStackTrace();
             log.error(e.getStackTrace().toString());
         }
-        resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
     }
 
     private String getHeadersInfo(HttpServletResponse response) {
 
-        Map<String, String> map = new HashMap<>();
-
-        Collection<String> headerNames = response.getHeaderNames();
-        while (headerNames.iterator().hasNext()) {
-            String key = headerNames.iterator().next();
-            String value = response.getHeader(key);
-            map.put(key, value);
-        }
-        return map.entrySet().stream()
-                .map(entry -> entry.getKey() + " - " + entry.getValue())
-                .collect(Collectors.joining(", "));
-    }
+        //Map<String, String> map = response.getHeaderNames().stream().collect(Collectors.toMap(a->a,(a->response.getHeader(a))));
+        return response.getHeaderNames().stream().map(a->(a + "-" + response.getHeader(a))).collect(Collectors.joining(", "));
+//        map = response.get
+//        while (headerNames.iterator().hasNext()) {
+//            String key = headerNames.iterator().next();
+//            String value = response.getHeader(key);
+//            map.put(key, value);
+//        }
+//        return map.entrySet().stream()
+//                .map(entry -> entry.getKey() + " - " + entry.getValue())
+//                .collect(Collectors.joining(", "));
+   }
 }

@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import {BackendService} from "../../../../_services";
+import {ServRespModel, User} from "../../../../_models";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector     : 'login',
@@ -14,6 +17,11 @@ import { fuseAnimations } from '@fuse/animations';
 export class LoginComponent implements OnInit
 {
     loginForm: FormGroup;
+    user: User;
+    loading = false;
+    submitted = false;
+    returnUrl: string;
+    error = '';
 
     /**
      * Constructor
@@ -23,7 +31,10 @@ export class LoginComponent implements OnInit
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private backendService: BackendService,
+        private route: ActivatedRoute,
+        private router: Router
     )
     {
         // Configure the layout
@@ -33,7 +44,7 @@ export class LoginComponent implements OnInit
                     hidden: true
                 },
                 toolbar  : {
-                    hidden: true
+                    hidden: false
                 },
                 footer   : {
                     hidden: true
@@ -58,5 +69,32 @@ export class LoginComponent implements OnInit
             email   : ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
+
+        // reset login status
+        sessionStorage.removeItem('currentUser');
+
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+
+    onSubmit():void{
+        // stop here if form is invalid
+        if (this.loginForm.invalid) {
+            return;
+        }
+        this.submitted = true;
+        this.loading = true;
+        this.user = {
+            username: this.loginForm.get('email').value,
+            password: this.loginForm.get('password').value
+        };
+        this.backendService.postResults('/api/authenticate',this.user)
+            .subscribe((token) =>{
+                    sessionStorage.setItem('currentUser', token);
+                    this.router.navigate(['/sample']);
+                },
+                error => {
+                    this.loading = false;
+                });
     }
 }

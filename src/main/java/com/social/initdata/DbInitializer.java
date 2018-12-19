@@ -52,7 +52,7 @@ public class DbInitializer implements CommandLineRunner {
         user.setEmail("Admin@Social.com");
         user.setAgreedTerms(true);
         user.setGender(Gender.MALE);
-        user.setUsername("admin");
+        user.setUsername("a@a");
         user.setLifecycle(LifeCycle.APPROVED);
         user.setPassword(bCryptPasswordEncoder.encode("admin"));
         userRepository.save(user);
@@ -62,7 +62,7 @@ public class DbInitializer implements CommandLineRunner {
         user.setEmail("User@Social.com");
         user.setAgreedTerms(true);
         user.setGender(Gender.MALE);
-        user.setUsername("user");
+        user.setUsername("u@u");
         user.setLifecycle(LifeCycle.APPROVED);
         user.setPassword(bCryptPasswordEncoder.encode("user"));
         userRepository.save(user);

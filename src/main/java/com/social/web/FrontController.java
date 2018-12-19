@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @Controller
+@RequestMapping("/api/suppliers")
 public class FrontController {
     @Autowired
     MenuRepository menuRepository;
