@@ -32,25 +32,14 @@ public class RespHelper {
         resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
         try {
             resp.getWriter().print(resJson);
-            String headersInfo = getHeadersInfo(resp);
-            log.info("Sent OK response with headers: " + headersInfo + " at time: " + LocalDateTime.now());
+            logInfo(resp, "Response OK");
         } catch (IOException e) {
             log.error(e.getStackTrace().toString());
         }
     }
 
-    private String getHeadersInfo(HttpServletResponse response) {
-
-        //Map<String, String> map = response.getHeaderNames().stream().collect(Collectors.toMap(a->a,(a->response.getHeader(a))));
-        return response.getHeaderNames().stream().map(a->(a + "-" + response.getHeader(a))).collect(Collectors.joining(", "));
-//        map = response.get
-//        while (headerNames.iterator().hasNext()) {
-//            String key = headerNames.iterator().next();
-//            String value = response.getHeader(key);
-//            map.put(key, value);
-//        }
-//        return map.entrySet().stream()
-//                .map(entry -> entry.getKey() + " - " + entry.getValue())
-//                .collect(Collectors.joining(", "));
+    private void logInfo(HttpServletResponse response, String message) {
+        log.info(message + " with headers: " + response.getHeaderNames().stream().map(a->(a + "-" + response.getHeader(a)))
+                .collect(Collectors.joining(", ")) + " at time: " + LocalDateTime.now());
    }
 }
