@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "picture")
 public class Picture {
     private Long id;
-    private UsersDetails user;
+    private Users user;
     private SuppliersDetails supplier;
     private PictureType type;
     private String picturePath;
@@ -29,11 +29,11 @@ public class Picture {
     }
 
     @ManyToOne
-    public UsersDetails getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(UsersDetails user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

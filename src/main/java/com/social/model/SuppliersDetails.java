@@ -11,7 +11,6 @@ import java.util.Set;
 @Entity
 public class SuppliersDetails {
     private int supplierID;
-    private Users user;
     private ZonedDateTime memeberSince;
     private ZonedDateTime lastActive;
     private Set<Picture>pictures;
@@ -34,15 +33,6 @@ public class SuppliersDetails {
 
     public void setSupplierID(int supplierID) {
         this.supplierID = supplierID;
-    }
-
-    @OneToOne
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
     }
 
     public ZonedDateTime getMemeberSince() {
