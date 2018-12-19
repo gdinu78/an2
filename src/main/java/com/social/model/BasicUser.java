@@ -14,7 +14,7 @@ public class BasicUser {
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
-    private String email;
+    private String name;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
@@ -72,12 +72,12 @@ public class BasicUser {
         this.roles = roles;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Gender getGender() {
