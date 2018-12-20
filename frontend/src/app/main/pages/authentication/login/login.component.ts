@@ -4,8 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import {BackendService} from "../../../../_services";
-import {ServRespModel, User} from "../../../../_models";
+import {User} from "../../../../_models";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FuseTranslationLoaderService} from "../../../../../@fuse/services/translation-loader.service";
+import { locale as english } from '../../../i18n/en';
+import { locale as turkish } from '../../../i18n/tr';
+import { locale as romanian } from '../../../i18n/ro';
 
 @Component({
     selector     : 'login',
@@ -30,6 +34,7 @@ export class LoginComponent implements OnInit
      * @param {FormBuilder} _formBuilder
      */
     constructor(
+        private _fuseTranslationLoaderService: FuseTranslationLoaderService,
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private backendService: BackendService,
@@ -54,6 +59,7 @@ export class LoginComponent implements OnInit
                 }
             }
         };
+        this._fuseTranslationLoaderService.loadTranslations(english, turkish, romanian);
     }
 
     // -----------------------------------------------------------------------------------------------------
