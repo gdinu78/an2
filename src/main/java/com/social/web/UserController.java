@@ -38,9 +38,17 @@ public class UserController {
     RespHelper respHelper;
 
     @PostMapping("/signup")
-    public void signUp(@RequestBody Users user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userService.save(user);
+    public void signUp(@RequestBody Users user, HttpServletResponse resp) {
+        if(user.getName()!=null && user.getUsername()!=null && user.getPassword()!=null && user.getPasswordConfirm()!=null
+            && user.getPassword().equals(user.getPasswordConfirm())) {
+            user.setName(user.getName());
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            userService.save(user);
+            respHelper.sendOk(resp,"");
+        }
+        else{
+            respHelper.sendErr(resp,"Cheat Register");
+        }
     }
 
     @PostMapping(path="/authenticate")

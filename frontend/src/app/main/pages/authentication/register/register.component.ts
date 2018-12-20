@@ -9,6 +9,9 @@ import {locale as english} from "../../../i18n/en";
 import {locale as turkish} from "../../../i18n/tr";
 import {locale as romanian} from "../../../i18n/ro";
 import {FuseTranslationLoaderService} from "../../../../../@fuse/services/translation-loader.service";
+import {User} from "../../../../_models";
+import {BackendService} from "../../../../_services";
+import {Router} from "@angular/router";
 
 @Component({
     selector     : 'register',
@@ -19,10 +22,12 @@ import {FuseTranslationLoaderService} from "../../../../../@fuse/services/transl
 })
 export class RegisterComponent implements OnInit, OnDestroy
 {
-    registerForm: FormGroup;
-
     // Private
+    private registerForm: FormGroup;
+    private user: User;
     private _unsubscribeAll: Subject<any>;
+    private backendService: BackendService;
+    private router: Router;
 
     constructor(
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
@@ -85,6 +90,23 @@ export class RegisterComponent implements OnInit, OnDestroy
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
+    }
+
+    onSubmit():void{
+        // stop here if form is invalid
+        if (this.registerForm.invalid) {
+            return;
+        }
+        this.user = {
+            username: this.registerForm.get('email').value,
+            password: this.registerForm.get('password').value
+        };
+        this.backendService.postResults('/api/signup',this.user)
+            .subscribe((token) =>{
+                    this.router.navigate(['/sample']);
+                },
+                error => {
+                });
     }
 }
 

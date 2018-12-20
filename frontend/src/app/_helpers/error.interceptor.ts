@@ -18,7 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 sessionStorage.removeItem('currentUser');
                 location.reload(true);
             }
-            const error = err.error.message || err.statusText;
+            const error = err.error.results || err.error.message || err.statusText;
             this.backendService.postResults('/api/clientLog',error)
                 .subscribe((data =>{
                     }),

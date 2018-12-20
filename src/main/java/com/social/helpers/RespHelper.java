@@ -38,6 +38,20 @@ public class RespHelper {
         }
     }
 
+    public void sendErr(HttpServletResponse resp, String message){
+        JSONObject resJson = new JSONObject();
+        resJson.put("rc", 0);
+        resJson.put("message", "OK");
+        resJson.put("results",message);
+        resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
+        try {
+            resp.getWriter().print(resJson);
+            logInfo(resp, "Response ERR");
+        } catch (IOException e) {
+            log.error(e.getStackTrace().toString());
+        }
+    }
+
     private void logInfo(HttpServletResponse response, String message) {
         log.info(message + " with headers: " + response.getHeaderNames().stream().map(a->(a + "-" + response.getHeader(a)))
                 .collect(Collectors.joining(", ")) + " at time: " + LocalDateTime.now());

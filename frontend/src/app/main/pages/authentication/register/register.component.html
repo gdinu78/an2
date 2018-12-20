@@ -10,7 +10,7 @@
 
             <div class="title">{{'Register.acc_create' | translate}}</div>
 
-            <form name="registerForm" [formGroup]="registerForm" novalidate>
+            <form name="registerForm" [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()>
 
                 <mat-form-field appearance="outline">
                     <mat-label>{{'Register.name' | translate}}</mat-label>
@@ -63,7 +63,7 @@
                 </div>
 
                 <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT"
-                        [disabled]="registerForm.invalid">
+                        [disabled]="registerForm.invalid" type="submit">
                     {{'Register.acc_create' | translate}}
                 </button>
 
