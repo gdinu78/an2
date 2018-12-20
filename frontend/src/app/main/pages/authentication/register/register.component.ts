@@ -5,6 +5,10 @@ import { takeUntil } from 'rxjs/internal/operators';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import {locale as english} from "../../../i18n/en";
+import {locale as turkish} from "../../../i18n/tr";
+import {locale as romanian} from "../../../i18n/ro";
+import {FuseTranslationLoaderService} from "../../../../../@fuse/services/translation-loader.service";
 
 @Component({
     selector     : 'register',
@@ -21,6 +25,7 @@ export class RegisterComponent implements OnInit, OnDestroy
     private _unsubscribeAll: Subject<any>;
 
     constructor(
+        private _fuseTranslationLoaderService: FuseTranslationLoaderService,
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder
     )
@@ -42,7 +47,7 @@ export class RegisterComponent implements OnInit, OnDestroy
                 }
             }
         };
-
+        this._fuseTranslationLoaderService.loadTranslations(english, turkish, romanian);
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
