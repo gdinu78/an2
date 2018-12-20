@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit, OnDestroy
                     hidden: true
                 },
                 toolbar  : {
-                    hidden: true
+                    hidden: false
                 },
                 footer   : {
                     hidden: true
