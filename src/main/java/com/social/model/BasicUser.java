@@ -4,6 +4,9 @@ import com.social.enums.Gender;
 import com.social.enums.LifeCycle;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -12,12 +15,20 @@ import java.util.Set;
 public class BasicUser {
     private int userID;
     @Column(nullable = false)
+    @NotNull
+    @Email
     private String username;
     @Column(nullable = false)
+    @NotNull
+    @Size(min = 4)
     private String name;
     @Column(nullable = false)
+    @NotNull
+    @Size(min = 6)
     private String password;
     @Column(nullable = false)
+    @NotNull
+    @Size(min = 6)
     private String passwordConfirm;
     @Column(nullable = false)
     private boolean agreedTerms;

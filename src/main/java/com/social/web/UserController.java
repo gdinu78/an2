@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
@@ -38,8 +40,9 @@ public class UserController {
     RespHelper respHelper;
 
     @PostMapping("/signup")
-    public void signUp(@RequestBody Users user, HttpServletResponse resp) {
-        if(user.getName()!=null && user.getUsername()!=null && user.getPassword()!=null && user.getPasswordConfirm()!=null
+    public void signUp(@RequestBody @Valid Users user, BindingResult result, HttpServletResponse resp) {
+
+        if(user!=null && user.getName()!=null && user.getUsername()!=null && user.getPassword()!=null && user.getPasswordConfirm()!=null
             && user.getPassword().equals(user.getPasswordConfirm())) {
             user.setName(user.getName());
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

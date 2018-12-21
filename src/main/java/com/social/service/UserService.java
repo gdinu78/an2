@@ -19,8 +19,6 @@ public interface UserService {
 
     Users findByUsername(String username);
 
-    Users findByEmail(String email);
-
     Location getClientLocation();
 
     String getClientIpAddr();

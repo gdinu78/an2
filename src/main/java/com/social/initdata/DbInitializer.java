@@ -49,22 +49,24 @@ public class DbInitializer implements CommandLineRunner {
 
         Users user = new Users();
         user.setRoles(Collections.singleton(roleAdmin));
-        user.setEmail("Admin@Social.com");
         user.setAgreedTerms(true);
         user.setGender(Gender.MALE);
-        user.setUsername("a@a");
+        user.setUsername("a1@a");
+        user.setName("a1@a");
         user.setLifecycle(LifeCycle.APPROVED);
-        user.setPassword(bCryptPasswordEncoder.encode("admin"));
+        user.setPassword(bCryptPasswordEncoder.encode("admin01"));
+        user.setPasswordConfirm(bCryptPasswordEncoder.encode("admin01"));
         userRepository.save(user);
 
         user = new Users();
         user.setRoles(Collections.singleton(roleUser));
-        user.setEmail("User@Social.com");
         user.setAgreedTerms(true);
         user.setGender(Gender.MALE);
-        user.setUsername("u@u");
+        user.setUsername("u1@u");
+        user.setName("u1@u");
         user.setLifecycle(LifeCycle.APPROVED);
-        user.setPassword(bCryptPasswordEncoder.encode("user"));
+        user.setPassword(bCryptPasswordEncoder.encode("user01"));
+        user.setPasswordConfirm(bCryptPasswordEncoder.encode("user01"));
         userRepository.save(user);
         System.out.println(" -- Database has been initialized");
     }

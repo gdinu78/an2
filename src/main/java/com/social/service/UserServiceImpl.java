@@ -92,11 +92,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return userRepository.findByUsername(username);
     }
 
-    @Override
-    public Users findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
     public List findAll() {
         List list = new ArrayList<>();
         userRepository.findAll().iterator().forEachRemaining(list::add);

@@ -1,3 +1,5 @@
+import {Validators} from "@angular/forms";
+
 export const locale = {
     lang: 'en',
     data: {
@@ -8,6 +10,7 @@ export const locale = {
             'email_pls': 'Please enter a valid email address',
             'password': 'Password',
             'password_required': 'Password is required',
+            'password_length': 'Password must have min 6 chars',
             'remember_me': 'Remember me',
             'forgot_password': 'Forgot Password?',
             'login': 'LOGIN',
@@ -21,6 +24,7 @@ export const locale = {
             'acc_create': 'CREATE AN ACCOUNT',
             'name': 'Name',
             'name_required': 'Name is required',
+            'name_length': 'Name must have min 4 chars',
             'password_confirm': 'Password (Confirm)',
             'password_confirm_required': 'Password confirmation is required',
             'password_must_match': 'Passwords must match',
