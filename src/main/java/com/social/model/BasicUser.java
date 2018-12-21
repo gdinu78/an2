@@ -20,20 +20,23 @@ public class BasicUser {
     private String username;
     @Column(nullable = false)
     @NotNull
-    @Size(min = 4)
+    @Size(min = 4, max = 30)
     private String name;
     @Column(nullable = false)
     @NotNull
-    @Size(min = 6)
+    @Size(min = 6, max = 100)
     private String password;
     @Column(nullable = false)
     @NotNull
-    @Size(min = 6)
+    @Size(min = 6, max = 100)
     private String passwordConfirm;
     @Column(nullable = false)
+    @NotNull
     private boolean agreedTerms;
     @Column(nullable = false)
+    @NotNull
     private Gender gender;
+    @Column(nullable = false)
     private Set<Roles> roles;
     @Column(nullable = false)
     private LifeCycle lifecycle;

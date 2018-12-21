@@ -39,31 +39,36 @@ public class UserController {
     @Autowired
     RespHelper respHelper;
 
-    @PostMapping("/signup")
-    public void signUp(@RequestBody @Valid Users user, BindingResult result, HttpServletResponse resp) {
-
-        if(user!=null && user.getName()!=null && user.getUsername()!=null && user.getPassword()!=null && user.getPasswordConfirm()!=null
-            && user.getPassword().equals(user.getPasswordConfirm())) {
-            user.setName(user.getName());
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            userService.save(user);
-            respHelper.sendOk(resp,"");
-        }
-        else{
-            respHelper.sendErr(resp,"Cheat Register");
+    @PostMapping(path="/signup")
+    public void signUp(@Valid @RequestBody  Users user, BindingResult result, HttpServletResponse resp) {
+        if(result.hasErrors()){
+            respHelper.sendErr(resp,"Registration error: " + result.getAllErrors().toString());
+        }else {
+            if (user.getPassword().equals(user.getPasswordConfirm())) {
+                user.setName(user.getName());
+                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                userService.save(user);
+                respHelper.sendOk(resp, "");
+            } else {
+                respHelper.sendErr(resp, "Registration error: Password not same with confirmation password");
+            }
         }
     }
 
     @PostMapping(path="/authenticate")
-    public void login(@RequestBody Users loginUser, HttpServletResponse resp) throws AuthenticationException {
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginUser.getUsername(),
-                        loginUser.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = tokenHelper.generateToken(authentication);
-        respHelper.sendOk(resp, token);
+    public void login(@Valid @RequestBody Users loginUser, BindingResult result, HttpServletResponse resp) throws AuthenticationException {
+        if(result.hasErrors()){
+            respHelper.sendErr(resp,"Registration error: " + result.getAllErrors().toString());
+        }else {
+            final Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginUser.getUsername(),
+                            loginUser.getPassword()
+                    )
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            final String token = tokenHelper.generateToken(authentication);
+            respHelper.sendOk(resp, token);
+        }
     }
 }

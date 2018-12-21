@@ -46,7 +46,7 @@ public class RespHelper {
         resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
         try {
             resp.getWriter().print(resJson);
-            logInfo(resp, "Response ERR");
+            logInfo(resp, message);
         } catch (IOException e) {
             log.error(e.getStackTrace().toString());
         }

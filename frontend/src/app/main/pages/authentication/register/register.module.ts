@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import {
+    MatButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule, MatRadioModule
+} from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
@@ -22,6 +28,7 @@ const routes = [
         RouterModule.forChild(routes),
 
         MatButtonModule,
+        MatRadioModule,
         MatCheckboxModule,
         MatFormFieldModule,
         MatIconModule,

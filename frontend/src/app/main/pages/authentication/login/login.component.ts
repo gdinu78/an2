@@ -92,7 +92,11 @@ export class LoginComponent implements OnInit
         this.loading = true;
         this.user = {
             username: this.loginForm.get('email').value,
-            password: this.loginForm.get('password').value
+            password: this.loginForm.get('password').value,
+            passwordConfirm: this.loginForm.get('password').value,
+            name: this.loginForm.get('email').value,
+            terms: true,
+            gender: 0
         };
         this.backendService.postResults('/api/authenticate',this.user)
             .subscribe((token) =>{

@@ -26,13 +26,13 @@ export class RegisterComponent implements OnInit, OnDestroy
     private registerForm: FormGroup;
     private user: User;
     private _unsubscribeAll: Subject<any>;
-    private backendService: BackendService;
     private router: Router;
 
     constructor(
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private backendService: BackendService
     )
     {
         // Configure the layout
@@ -70,7 +70,9 @@ export class RegisterComponent implements OnInit, OnDestroy
             name           : ['', [Validators.required, Validators.minLength(4)]],
             email          : ['', [Validators.required, Validators.email]],
             password       : ['', [Validators.required, Validators.minLength(6)]],
-            passwordConfirm: ['', [Validators.required, Validators.minLength(6), confirmPasswordValidator]]
+            passwordConfirm: ['', [Validators.required, Validators.minLength(6), confirmPasswordValidator]],
+            terms: ['', [Validators.requiredTrue]],
+            gender: ['', [Validators.required]]
         });
 
         // Update the validity of the 'passwordConfirm' field
@@ -99,7 +101,11 @@ export class RegisterComponent implements OnInit, OnDestroy
         }
         this.user = {
             username: this.registerForm.get('email').value,
-            password: this.registerForm.get('password').value
+            password: this.registerForm.get('password').value,
+            passwordConfirm: this.registerForm.get('passwordConfirm').value,
+            name: this.registerForm.get('name').value,
+            terms: this.registerForm.get('terms').value,
+            gender: this.registerForm.get('gender').value
         };
         this.backendService.postResults('/api/signup',this.user)
             .subscribe((token) =>{
