@@ -4,11 +4,15 @@ export const locale = {
     lang: 'en',
     data: {
         'NAV': {
-            'APPLICATIONS': 'Applications',
-            'SAMPLE'        : {
-                'TITLE': 'Sample',
-                'BADGE': '25'
-            }
+            'ADM_APPLICATIONS': 'Admin Applications',
+            'MAIL':{
+                'TITLE': 'Mail',
+            },
+            'CHAT': 'Chat',
+            'FAV': 'Favourites',
+            'FILE_MANAGER': 'File manager',
+            'USERS': 'Users',
+            'SEARCH': 'Search'
         },
         'backErr': {
             'login_no_account': 'Authentication failed',
