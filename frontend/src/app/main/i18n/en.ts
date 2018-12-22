@@ -3,6 +3,13 @@ import {Validators} from "@angular/forms";
 export const locale = {
     lang: 'en',
     data: {
+        'NAV': {
+            'APPLICATIONS': 'Applications',
+            'SAMPLE'        : {
+                'TITLE': 'Sample',
+                'BADGE': '25'
+            }
+        },
         'backErr': {
             'login_no_account': 'Authentication failed',
             'login_validation_err': 'Login information is invalid',

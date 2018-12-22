@@ -1,6 +1,13 @@
 export const locale = {
     lang: 'ro',
     data: {
+        'NAV': {
+            'APPLICATIONS': 'Aplicatii',
+            'SAMPLE'        : {
+                'TITLE': 'Exemplu',
+                'BADGE': '25'
+            }
+        },
         'backErr': {
             'login_no_account': 'Autentificarea a esuat',
             'login_validation_err': 'Informatiile de login nu sunt valide',

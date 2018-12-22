@@ -11,7 +11,7 @@
 
             <div class="toolbar-separator" *ngIf="!hiddenNavbar && !rightNavbar" fxHide.gt-md></div>
 
-            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="horizontalNavbar">
+            <div fxLayout="row" fxLayoutAlign="start center">
                 <div class="logo ml-16">
                     <img class="logo-icon" src="assets/images/logos/fuse.svg">
                 </div>
@@ -44,6 +44,16 @@
                 </button>
 
                 <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+
+                    <button mat-menu-item>
+                        <mat-icon>mood</mat-icon>
+                        <span>VIP member</span>
+                    </button>
+
+                    <button mat-menu-item>
+                        <mat-icon>settings</mat-icon>
+                        <span>Profile settings</span>
+                    </button>
 
                     <button mat-menu-item>
                         <mat-icon>account_circle</mat-icon>
