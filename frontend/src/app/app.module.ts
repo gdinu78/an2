@@ -21,7 +21,10 @@ import {ErrorInterceptor, JwtInterceptor} from './_helpers/index';
 import {BackendService} from './_services/index';
 
 const appRoutes: Routes = [
-
+    {
+        path        : 'apps',
+        loadChildren: './main/apps/apps.module#AppsModule'
+    },
     {
         path        : 'pages',
         loadChildren: './main/pages/pages.module#PagesModule'
