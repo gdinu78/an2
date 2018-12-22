@@ -27,6 +27,7 @@ export const locale = {
             'create_account': 'Create an account'
         },
         'Register': {
+            'register': 'REGISTER',
             'acc_create': 'CREATE AN ACCOUNT',
             'name': 'Name',
             'name_required': 'Name is required',

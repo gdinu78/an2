@@ -25,6 +25,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
     navigation: any;
     selectedLanguage: any;
     userStatusOptions: any[];
+    isLogged=false;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -90,7 +91,6 @@ export class ToolbarComponent implements OnInit, OnDestroy
         ];
 
         this.navigation = navigation;
-
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -115,6 +115,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
         // Set the selected language from default languages
         this.selectedLanguage = _.find(this.languages, {'id': this._translateService.currentLang});
+        if (sessionStorage.getItem("currentUser")) {
+            this.isLogged=true;
+        }
     }
 
     /**
@@ -125,6 +128,17 @@ export class ToolbarComponent implements OnInit, OnDestroy
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
+    }
+
+    isLoggedIn(): boolean
+    {
+        if (sessionStorage.getItem("currentUser")) {
+            this.isLogged=true;
+            return true;
+        }else{
+            this.isLogged=false;
+            return false;
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------
