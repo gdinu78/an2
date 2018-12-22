@@ -1,6 +1,7 @@
 package com.social.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.social.enums.RolEnum;
 import com.social.model.Location;
 import com.social.model.Picture;
 import com.social.model.Roles;
@@ -90,6 +91,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public Users findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public Roles findByRoleName(RolEnum rolEnum) {
+        return roleRepository.findByRoleName(rolEnum);
     }
 
     public List findAll() {

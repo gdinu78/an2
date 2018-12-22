@@ -3,6 +3,6 @@ export interface User {
     password: string;
     passwordConfirm: string;
     name: string;
-    terms: boolean;
+    agreedTerms: boolean;
     gender: number;
 }

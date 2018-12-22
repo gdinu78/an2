@@ -36,7 +36,7 @@ export class BackendService {
             if (res.rc !== 0) {
                 throw(res.message);
             } else {
-                return res.results;
+                return res;
             }
         }),
             catchError(this.handleError)

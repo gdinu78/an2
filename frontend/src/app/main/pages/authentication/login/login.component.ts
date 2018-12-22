@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import {BackendService} from "../../../../_services";
-import {User} from "../../../../_models";
+import {ServRespModel, User} from "../../../../_models";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FuseTranslationLoaderService} from "../../../../../@fuse/services/translation-loader.service";
 import { locale as english } from '../../../i18n/en';
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit
     loading = false;
     submitted = false;
     returnUrl: string;
-    error = '';
+    backendError;
 
     /**
      * Constructor
@@ -95,14 +95,18 @@ export class LoginComponent implements OnInit
             password: this.loginForm.get('password').value,
             passwordConfirm: this.loginForm.get('password').value,
             name: this.loginForm.get('email').value,
-            terms: true,
+            agreedTerms: true,
             gender: 0
         };
         this.backendService.postResults('/api/authenticate',this.user)
-            .subscribe((token) =>{
-                    sessionStorage.setItem('currentUser', token);
-                    this.router.navigate(['/sample']);
-                },
+            .subscribe((res : ServRespModel) => {
+                if (res.message != 'ERROR') {
+                   sessionStorage.setItem('currentUser', res.results);
+                   this.router.navigate(['/sample']);
+                }else{
+                    this.backendError=res.results;
+                }
+            },
                 error => {
                     this.loading = false;
                 });

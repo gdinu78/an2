@@ -4,6 +4,7 @@ import com.social.enums.Gender;
 import com.social.enums.LifeCycle;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,6 +33,7 @@ public class BasicUser {
     private String passwordConfirm;
     @Column(nullable = false)
     @NotNull
+    @AssertTrue
     private boolean agreedTerms;
     @Column(nullable = false)
     @NotNull

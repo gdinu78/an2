@@ -1,7 +1,10 @@
 package com.social.web;
 
+import com.social.enums.LifeCycle;
+import com.social.enums.RolEnum;
 import com.social.helpers.RespHelper;
 import com.social.helpers.TokenHelper;
+import com.social.model.Roles;
 import com.social.model.Users;
 import com.social.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api")
@@ -45,7 +49,10 @@ public class UserController {
             respHelper.sendErr(resp,"Registration error: " + result.getAllErrors().toString());
         }else {
             if (user.getPassword().equals(user.getPasswordConfirm())) {
+                Roles userRole = userService.findByRoleName(RolEnum.USER);
+                user.setRoles(Collections.singleton(userRole));
                 user.setName(user.getName());
+                user.setLifecycle(LifeCycle.CREATED);
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 userService.save(user);
                 respHelper.sendOk(resp, "");
@@ -56,19 +63,23 @@ public class UserController {
     }
 
     @PostMapping(path="/authenticate")
-    public void login(@Valid @RequestBody Users loginUser, BindingResult result, HttpServletResponse resp) throws AuthenticationException {
+    public void login(@Valid @RequestBody Users loginUser, BindingResult result, HttpServletResponse resp){
         if(result.hasErrors()){
             respHelper.sendErr(resp,"Registration error: " + result.getAllErrors().toString());
         }else {
-            final Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginUser.getUsername(),
-                            loginUser.getPassword()
-                    )
-            );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            final String token = tokenHelper.generateToken(authentication);
-            respHelper.sendOk(resp, token);
+            try {
+                final Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                loginUser.getUsername(),
+                                loginUser.getPassword()
+                        )
+                );
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                final String token = tokenHelper.generateToken(authentication);
+                respHelper.sendOk(resp, token);
+            }catch (AuthenticationException ae){
+                respHelper.sendErr(resp, "Authentication failed");
+            }
         }
     }
 }

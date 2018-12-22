@@ -41,7 +41,7 @@ public class RespHelper {
     public void sendErr(HttpServletResponse resp, String message){
         JSONObject resJson = new JSONObject();
         resJson.put("rc", 0);
-        resJson.put("message", "OK");
+        resJson.put("message", "ERROR");
         resJson.put("results",message);
         resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
         try {
