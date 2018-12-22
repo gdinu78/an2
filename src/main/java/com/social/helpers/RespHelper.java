@@ -38,15 +38,15 @@ public class RespHelper {
         }
     }
 
-    public void sendErr(HttpServletResponse resp, String message){
+    public void sendErr(HttpServletResponse resp, String messageToSend, String messageToLog){
         JSONObject resJson = new JSONObject();
         resJson.put("rc", 0);
         resJson.put("message", "ERROR");
-        resJson.put("results",message);
+        resJson.put("results",messageToSend);
         resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
         try {
             resp.getWriter().print(resJson);
-            logInfo(resp, message);
+            logWarn(resp, messageToLog);
         } catch (IOException e) {
             log.error(e.getStackTrace().toString());
         }
@@ -56,4 +56,8 @@ public class RespHelper {
         log.info(message + " with headers: " + response.getHeaderNames().stream().map(a->(a + "-" + response.getHeader(a)))
                 .collect(Collectors.joining(", ")) + " at time: " + LocalDateTime.now());
    }
+    private void logWarn(HttpServletResponse response, String message) {
+        log.warn(message + " with headers: " + response.getHeaderNames().stream().map(a->(a + "-" + response.getHeader(a)))
+                .collect(Collectors.joining(", ")) + " at time: " + LocalDateTime.now());
+    }
 }

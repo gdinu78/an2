@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit, OnDestroy
     private registerForm: FormGroup;
     private user: User;
     private _unsubscribeAll: Subject<any>;
+    private backendError;
 
     constructor(
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
@@ -112,7 +113,7 @@ export class RegisterComponent implements OnInit, OnDestroy
                     if (res.message != 'ERROR') {
                         this.router.navigate(['/sample']);
                     }else{
-
+                        this.backendError=res.results;
                     }
                 },
                 error => {

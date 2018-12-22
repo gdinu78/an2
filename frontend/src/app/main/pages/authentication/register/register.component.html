@@ -10,6 +10,12 @@
 
             <div class="title">{{'Register.acc_create' | translate}}</div>
 
+            <div *ngIf="backendError" fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon matSuffix class="secondary-text">warning</mat-icon>
+                <mat-error>
+                    {{ backendError | translate}}
+                </mat-error>
+            </div>
             <form name="registerForm" [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
 
                 <div class="gender" fxLayout="row" fxLayoutAlign="center center">

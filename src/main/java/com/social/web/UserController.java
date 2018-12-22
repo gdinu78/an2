@@ -46,7 +46,7 @@ public class UserController {
     @PostMapping(path="/signup")
     public void signUp(@Valid @RequestBody  Users user, BindingResult result, HttpServletResponse resp) {
         if(result.hasErrors()){
-            respHelper.sendErr(resp,"Registration error: " + result.getAllErrors().toString());
+            respHelper.sendErr(resp, "backErr.reg_validation_err", "Registration error: " + result.getAllErrors().toString());
         }else {
             if (user.getPassword().equals(user.getPasswordConfirm())) {
                 Roles userRole = userService.findByRoleName(RolEnum.USER);
@@ -57,7 +57,7 @@ public class UserController {
                 userService.save(user);
                 respHelper.sendOk(resp, "");
             } else {
-                respHelper.sendErr(resp, "Registration error: Password not same with confirmation password");
+                respHelper.sendErr(resp, "backErr.reg_pass_no_match", "Registration error: Password not same with confirmation password");
             }
         }
     }
@@ -65,7 +65,7 @@ public class UserController {
     @PostMapping(path="/authenticate")
     public void login(@Valid @RequestBody Users loginUser, BindingResult result, HttpServletResponse resp){
         if(result.hasErrors()){
-            respHelper.sendErr(resp,"Registration error: " + result.getAllErrors().toString());
+            respHelper.sendErr(resp, "backErr.login_validation_err", "Registration error: " + result.getAllErrors().toString());
         }else {
             try {
                 final Authentication authentication = authenticationManager.authenticate(
@@ -78,7 +78,7 @@ public class UserController {
                 final String token = tokenHelper.generateToken(authentication);
                 respHelper.sendOk(resp, token);
             }catch (AuthenticationException ae){
-                respHelper.sendErr(resp, "Authentication failed");
+                respHelper.sendErr(resp, "backErr.login_no_account","Account does not exists");
             }
         }
     }

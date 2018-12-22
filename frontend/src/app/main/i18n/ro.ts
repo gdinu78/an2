@@ -1,6 +1,12 @@
 export const locale = {
     lang: 'ro',
     data: {
+        'backErr': {
+            'login_no_account': 'Autentificarea a esuat',
+            'login_validation_err': 'Informatiile de login nu sunt valide',
+            'reg_pass_no_match': 'Parolele trebuie sa coincida',
+            'reg_validation_err': 'Informatiile de inregistrare nu sunt valide'
+        },
         'Login': {
             'acc_login': 'LOGIN IN CONTUL TAU',
             'email': 'Email',

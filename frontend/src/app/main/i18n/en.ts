@@ -3,6 +3,12 @@ import {Validators} from "@angular/forms";
 export const locale = {
     lang: 'en',
     data: {
+        'backErr': {
+            'login_no_account': 'Authentication failed',
+            'login_validation_err': 'Login information is invalid',
+            'reg_pass_no_match': 'Passwords must match',
+            'reg_validation_err': 'Registration information is invalid'
+        },
         'Login': {
             'acc_login': 'LOGIN TO YOUR ACCOUNT',
             'email': 'Email',
