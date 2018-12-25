@@ -23,6 +23,10 @@ public interface UserService {
 
     Roles findByRoleName(RolEnum rolEnum);
 
+    //List<Users> findAll(int fromRecordNo, int toRecordNo);
+
+    List<Users> findAll();
+
     Location getClientLocation();
 
     String getClientIpAddr();

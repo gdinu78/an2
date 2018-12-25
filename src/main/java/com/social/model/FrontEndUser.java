@@ -1,35 +1,35 @@
 package com.social.model;
-import com.social.enums.*;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class FrontEndUser {
     private int userID;
     private String username;
     private String name;
-    private Gender gender;
-    private Set<Roles> roles;
-    private LifeCycle lifecycle;
+    private String gender;
+    private Set<String> roles;
+    private String lifecycle;
     private ZonedDateTime memberSince;
     private ZonedDateTime lastActive;
     private String heading;
     private LocalDate birthDate;
-    private Lifestyle lifestyle;
-    private Worth netWorth;
-    private Income annualIncome;
+    private String lifestyle;
+    private String netWorth;
+    private String annualIncome;
     private int height;
-    private BodyType bodyType;
-    private Ethnicity ethnicity;
-    private HairColor hairColor;
-    private Occupation occupation;
-    private Education education;
-    private Relationship relationship;
+    private String bodyType;
+    private String ethnicity;
+    private String hairColor;
+    private String occupation;
+    private String education;
+    private String relationship;
     private int children;
-    private Smoking smoking;
-    private Dinking drinking;
-    private Language language;
-    private Set<Picture> pics;
+    private String smoking;
+    private String drinking;
+    private String language;
+    private Set<String> pics;
     private String location;
     private String descrAboutME;
     private String descrLookingFor;
@@ -37,32 +37,32 @@ public class FrontEndUser {
 
     public FrontEndUser(Users u){
         this.userID = u.getUserID();
-        this.annualIncome=u.getAnnualIncome();
+        this.annualIncome=u.getAnnualIncome()==null ? "" : u.getAnnualIncome().getType();
         this.birthDate=u.getBirthDate();
-        this.bodyType=u.getBodyType();
+        this.bodyType=u.getBodyType()==null ? "" : u.getBodyType().getType();
         this.children=u.getChildren();
         this.descrAboutME=u.getDescrAboutME();
         this.descrLookingFor=u.getDescrLookingFor();
-        this.drinking=u.getDrinking();
-        this.education=u.getEducation();
-        this.ethnicity=u.getEthnicity();
-        this.gender=u.getGender();
-        this.hairColor=u.getHairColor();
+        this.drinking=u.getDrinking()==null ? "" : u.getDrinking().getType();
+        this.education=u.getEducation()==null ? "" : u.getEducation().getType();
+        this.ethnicity=u.getEthnicity()==null ? "" : u.getEthnicity().getType();
+        this.gender=u.getGender().getType();
+        this.hairColor=u.getHairColor()==null ? "" : u.getHairColor().getType();
         this.heading=u.getHeading();
         this.height=u.getHeight();
-        this.language=u.getLanguage();
+        this.language=u.getLanguage()==null ? "" : u.getLanguage().getType();
         this.lastActive=u.getLastActive();
-        this.lifecycle=u.getLifecycle();
+        this.lifecycle=u.getLifecycle()==null ? "" : u.getLifecycle().getType();
         this.location=u.getLocation();
-        this.lifestyle=u.getLifestyle();
+        this.lifestyle=u.getLifestyle()==null ? "" : u.getLifestyle().getType();
         this.memberSince=u.getMemberSince();
         this.name=u.getName();
-        this.netWorth=u.getNetWorth();
-        this.occupation=u.getOccupation();
-        this.pics=u.getPics();
-        this.relationship=u.getRelationship();
-        this.roles=u.getRoles();
-        this.smoking=u.getSmoking();
+        this.netWorth=u.getNetWorth()==null ? "" : u.getNetWorth().getType();
+        this.occupation=u.getOccupation()==null ? "" : u.getOccupation().getType();
+        this.pics=u.getPics().stream().filter(a->a!=null).map(a->a.getPicturePath()).collect(Collectors.toSet());
+        this.relationship=u.getRelationship()==null ? "" : u.getRelationship().getType();
+        this.roles=u.getRoles().stream().map(a->a.getRoleName().getType()).collect(Collectors.toSet());
+        this.smoking=u.getSmoking()==null ? "" : u.getSmoking().getType();
         this.username=u.getUsername();
     }
 
@@ -90,27 +90,27 @@ public class FrontEndUser {
         this.name = name;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public Set<Roles> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Roles> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 
-    public LifeCycle getLifecycle() {
+    public String getLifecycle() {
         return lifecycle;
     }
 
-    public void setLifecycle(LifeCycle lifecycle) {
+    public void setLifecycle(String lifecycle) {
         this.lifecycle = lifecycle;
     }
 
@@ -146,27 +146,27 @@ public class FrontEndUser {
         this.birthDate = birthDate;
     }
 
-    public Lifestyle getLifestyle() {
+    public String getLifestyle() {
         return lifestyle;
     }
 
-    public void setLifestyle(Lifestyle lifestyle) {
+    public void setLifestyle(String lifestyle) {
         this.lifestyle = lifestyle;
     }
 
-    public Worth getNetWorth() {
+    public String getNetWorth() {
         return netWorth;
     }
 
-    public void setNetWorth(Worth netWorth) {
+    public void setNetWorth(String netWorth) {
         this.netWorth = netWorth;
     }
 
-    public Income getAnnualIncome() {
+    public String getAnnualIncome() {
         return annualIncome;
     }
 
-    public void setAnnualIncome(Income annualIncome) {
+    public void setAnnualIncome(String annualIncome) {
         this.annualIncome = annualIncome;
     }
 
@@ -178,51 +178,51 @@ public class FrontEndUser {
         this.height = height;
     }
 
-    public BodyType getBodyType() {
+    public String getBodyType() {
         return bodyType;
     }
 
-    public void setBodyType(BodyType bodyType) {
+    public void setBodyType(String bodyType) {
         this.bodyType = bodyType;
     }
 
-    public Ethnicity getEthnicity() {
+    public String getEthnicity() {
         return ethnicity;
     }
 
-    public void setEthnicity(Ethnicity ethnicity) {
+    public void setEthnicity(String ethnicity) {
         this.ethnicity = ethnicity;
     }
 
-    public HairColor getHairColor() {
+    public String getHairColor() {
         return hairColor;
     }
 
-    public void setHairColor(HairColor hairColor) {
+    public void setHairColor(String hairColor) {
         this.hairColor = hairColor;
     }
 
-    public Occupation getOccupation() {
+    public String getOccupation() {
         return occupation;
     }
 
-    public void setOccupation(Occupation occupation) {
+    public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
 
-    public Education getEducation() {
+    public String getEducation() {
         return education;
     }
 
-    public void setEducation(Education education) {
+    public void setEducation(String education) {
         this.education = education;
     }
 
-    public Relationship getRelationship() {
+    public String getRelationship() {
         return relationship;
     }
 
-    public void setRelationship(Relationship relationship) {
+    public void setRelationship(String relationship) {
         this.relationship = relationship;
     }
 
@@ -234,35 +234,35 @@ public class FrontEndUser {
         this.children = children;
     }
 
-    public Smoking getSmoking() {
+    public String getSmoking() {
         return smoking;
     }
 
-    public void setSmoking(Smoking smoking) {
+    public void setSmoking(String smoking) {
         this.smoking = smoking;
     }
 
-    public Dinking getDrinking() {
+    public String getDrinking() {
         return drinking;
     }
 
-    public void setDrinking(Dinking drinking) {
+    public void setDrinking(String drinking) {
         this.drinking = drinking;
     }
 
-    public Language getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(Language language) {
+    public void setLanguage(String language) {
         this.language = language;
     }
 
-    public Set<Picture> getPics() {
+    public Set<String> getPics() {
         return pics;
     }
 
-    public void setPics(Set<Picture> pics) {
+    public void setPics(Set<String> pics) {
         this.pics = pics;
     }
 

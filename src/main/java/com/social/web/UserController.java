@@ -4,12 +4,11 @@ import com.social.enums.LifeCycle;
 import com.social.enums.RolEnum;
 import com.social.helpers.RespHelper;
 import com.social.helpers.TokenHelper;
+import com.social.model.FrontEndUser;
 import com.social.model.Roles;
 import com.social.model.Users;
 import com.social.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,15 +16,15 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -80,6 +79,33 @@ public class UserController {
             }catch (AuthenticationException ae){
                 respHelper.sendErr(resp, "backErr.login_no_account","Account does not exists");
             }
+        }
+    }
+
+    @GetMapping(path="/users")
+    public void getAllUsers(HttpServletResponse resp) {
+        try {
+//            int intFromReq = Integer.decode(fromReq);
+//            int toFromReq = Integer.decode(toReq);
+            //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
+            List<Users> usersList = userService.findAll();
+            List<FrontEndUser> frontEndUsers = usersList.stream()
+                    .map(a->new FrontEndUser(a)).collect(Collectors.toList());
+            respHelper.sendOk(resp, frontEndUsers);
+        }catch (NumberFormatException n){
+            respHelper.sendErr(resp,"","Users table param is not a number");
+        }
+    }
+    @GetMapping(path="/getUser")
+    public void getUserById(@RequestParam("id") String id, HttpServletResponse resp) {
+        try {
+//            int intFromReq = Integer.decode(fromReq);
+//            int toFromReq = Integer.decode(toReq);
+            //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
+            List<Users> usersList = userService.findAll();
+            respHelper.sendOk(resp, usersList.get(0));
+        }catch (NumberFormatException n){
+            respHelper.sendErr(resp,"","Users table param is not a number");
         }
     }
 }

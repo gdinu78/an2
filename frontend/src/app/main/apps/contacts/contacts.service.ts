@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FuseUtils } from '@fuse/utils';
 
 import { Contact } from 'app/main/apps/contacts/contact.model';
+import {BackendService} from "../../../_services";
 
 @Injectable()
 export class ContactsService implements Resolve<any>
@@ -29,7 +30,7 @@ export class ContactsService implements Resolve<any>
      * @param {HttpClient} _httpClient
      */
     constructor(
-        private _httpClient: HttpClient
+        private backendservice: BackendService
     )
     {
         // Set the defaults
@@ -56,8 +57,8 @@ export class ContactsService implements Resolve<any>
         return new Promise((resolve, reject) => {
 
             Promise.all([
-                this.getContacts(),
-                this.getUserData()
+                this.getContacts()
+                //this.getUserData()
             ]).then(
                 ([files]) => {
 
@@ -87,10 +88,10 @@ export class ContactsService implements Resolve<any>
     getContacts(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this._httpClient.get('api/contacts-contacts')
+                this.backendservice.getResults('/api/users')
                     .subscribe((response: any) => {
-
-                        this.contacts = response;
+                        this.contacts = null;
+                        this.contacts = response.results;
 
                         if ( this.filterBy === 'starred' )
                         {
@@ -130,9 +131,9 @@ export class ContactsService implements Resolve<any>
     getUserData(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this._httpClient.get('api/contacts-user/5725a6802d10e277a0f35724')
+                this.backendservice.getResults('/api/getUser?id=0')
                     .subscribe((response: any) => {
-                        this.user = response;
+                        this.user = response.results;
                         this.onUserDataChanged.next(this.user);
                         resolve(this.user);
                     }, reject);
@@ -219,7 +220,7 @@ export class ContactsService implements Resolve<any>
     {
         return new Promise((resolve, reject) => {
 
-            this._httpClient.post('api/contacts-contacts/' + contact.id, {...contact})
+            this.backendservice.postResults('/api/users/' + contact.id, {...contact})
                 .subscribe(response => {
                     this.getContacts();
                     resolve(response);
@@ -236,7 +237,7 @@ export class ContactsService implements Resolve<any>
     updateUserData(userData): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this._httpClient.post('api/contacts-user/' + this.user.id, {...userData})
+            this.backendservice.postResults('/api/contacts-user/' + this.user.id, {...userData})
                 .subscribe(response => {
                     this.getUserData();
                     this.getContacts();

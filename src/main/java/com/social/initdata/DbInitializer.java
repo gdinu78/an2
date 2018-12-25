@@ -42,10 +42,13 @@ public class DbInitializer implements CommandLineRunner {
 
         Roles roleAdmin = new Roles();
         roleAdmin.setRoleName(RolEnum.ADMIN);
+        roleRepository.save(roleAdmin);
         Roles roleUser = new Roles();
         roleAdmin.setRoleName(RolEnum.USER);
-        roleRepository.save(roleAdmin);
         roleRepository.save(roleUser);
+        Roles roleSupplier = new Roles();
+        roleAdmin.setRoleName(RolEnum.SUPPLIER);
+        roleRepository.save(roleSupplier);
 
         Users user = new Users();
         user.setRoles(Collections.singleton(roleAdmin));

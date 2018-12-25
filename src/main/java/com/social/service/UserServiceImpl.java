@@ -11,6 +11,8 @@ import com.social.repository.PicturesRepository;
 import com.social.repository.RoleRepository;
 import com.social.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -98,11 +100,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return roleRepository.findByRoleName(rolEnum);
     }
 
-    public List findAll() {
-        List list = new ArrayList<>();
-        userRepository.findAll().iterator().forEachRemaining(list::add);
-        return list;
-    }
+//    @Override
+//    public List<Users> findAll(int fromRecordNo, int toRecordNo) {
+//        List<Users> usersList = userRepository
+//                .findAll(new PageRequest(fromRecordNo, toRecordNo)).getContent();
+//        return usersList;
+//    }
+
+    @Override
+    public List<Users> findAll(){ return userRepository.findAll(); }
 
     private Set<SimpleGrantedAuthority> getAuthority(Users user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();

@@ -1,6 +1,7 @@
 package com.social.helpers;
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,6 +24,7 @@ public class RespHelper {
 
     public void sendOk(HttpServletResponse resp, Object body){
         JSONObject resJson = new JSONObject();
+        JSONArray arr = new JSONArray(((ArrayList)body).toArray());
         resJson.put("rc", 0);
         resJson.put("message", "OK");
         resJson.put("results",body);
