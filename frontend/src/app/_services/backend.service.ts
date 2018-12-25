@@ -20,7 +20,7 @@ export class BackendService {
             if (data.rc !== 0) {
                 throw(data.message);
             } else {
-                return data.results;
+                return data;
             }
         }),
             catchError(this.handleError)
