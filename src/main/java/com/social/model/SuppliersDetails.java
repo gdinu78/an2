@@ -1,19 +1,15 @@
 package com.social.model;
 
-import com.social.enums.LifeCycle;
-
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @Entity
 public class SuppliersDetails {
     private int supplierID;
     private ZonedDateTime memeberSince;
     private ZonedDateTime lastActive;
-    private Set<Picture>pictures;
     private String place;
     private String minPrice;
     private String minInv;
@@ -49,15 +45,6 @@ public class SuppliersDetails {
 
     public void setLastActive(ZonedDateTime lastActive) {
         this.lastActive = lastActive;
-    }
-
-    @OneToMany(mappedBy="supplier")
-    public Set<Picture> getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(Set<Picture> pictures) {
-        this.pictures = pictures;
     }
 
     public String getPlace() {

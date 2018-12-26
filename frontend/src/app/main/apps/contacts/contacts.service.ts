@@ -57,8 +57,8 @@ export class ContactsService implements Resolve<any>
         return new Promise((resolve, reject) => {
 
             Promise.all([
-                this.getContacts()
-                //this.getUserData()
+                this.getContacts(),
+                this.getUserData()
             ]).then(
                 ([files]) => {
 
@@ -96,14 +96,14 @@ export class ContactsService implements Resolve<any>
                         if ( this.filterBy === 'starred' )
                         {
                             this.contacts = this.contacts.filter(_contact => {
-                                return this.user.starred.includes(_contact.id);
+                                return this.user.starred.includes(_contact.userID);
                             });
                         }
 
                         if ( this.filterBy === 'frequent' )
                         {
                             this.contacts = this.contacts.filter(_contact => {
-                                return this.user.frequentContacts.includes(_contact.id);
+                                return this.user.frequentContacts.includes(_contact.userID);
                             });
                         }
 
@@ -202,7 +202,7 @@ export class ContactsService implements Resolve<any>
         {
             this.selectedContacts = [];
             this.contacts.map(contact => {
-                this.selectedContacts.push(contact.id);
+                this.selectedContacts.push(contact.userID);
             });
         }
 
@@ -237,7 +237,7 @@ export class ContactsService implements Resolve<any>
     updateUserData(userData): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this.backendservice.postResults('/api/contacts-user/' + this.user.id, {...userData})
+            this.backendservice.postResults('/api/contacts-user/' + this.user.userID, {...userData})
                 .subscribe(response => {
                     this.getUserData();
                     this.getContacts();
@@ -277,7 +277,7 @@ export class ContactsService implements Resolve<any>
         for ( const contactId of this.selectedContacts )
         {
             const contact = this.contacts.find(_contact => {
-                return _contact.id === contactId;
+                return _contact.userID === contactId;
             });
             const contactIndex = this.contacts.indexOf(contact);
             this.contacts.splice(contactIndex, 1);

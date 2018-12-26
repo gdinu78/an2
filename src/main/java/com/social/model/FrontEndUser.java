@@ -10,6 +10,7 @@ public class FrontEndUser {
     private String name;
     private String gender;
     private Set<String> roles;
+    private Set<String> favourite;
     private String lifecycle;
     private ZonedDateTime memberSince;
     private ZonedDateTime lastActive;
@@ -61,6 +62,8 @@ public class FrontEndUser {
         this.occupation=u.getOccupation()==null ? "" : u.getOccupation().getType();
         this.pics=u.getPics().stream().filter(a->a!=null).map(a->a.getPicturePath()).collect(Collectors.toSet());
         this.relationship=u.getRelationship()==null ? "" : u.getRelationship().getType();
+        this.favourite=u.getFavorite().stream().filter(a->a!=null && a.getFavUser()!=null).map(a->String.valueOf(a.getFavUser().getUserID()))
+                .collect(Collectors.toSet());
         this.roles=u.getRoles().stream().map(a->a.getRoleName().getType()).collect(Collectors.toSet());
         this.smoking=u.getSmoking()==null ? "" : u.getSmoking().getType();
         this.username=u.getUsername();
@@ -88,6 +91,14 @@ public class FrontEndUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<String> getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(Set<String> favourite) {
+        this.favourite = favourite;
     }
 
     public String getGender() {

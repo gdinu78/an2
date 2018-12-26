@@ -12,7 +12,6 @@ import javax.persistence.*;
 public class Picture {
     private Long id;
     private Users user;
-    private SuppliersDetails supplier;
     private PictureType type;
     private String picturePath;
     private PictureKind pictureKind;
@@ -35,15 +34,6 @@ public class Picture {
 
     public void setUser(Users user) {
         this.user = user;
-    }
-
-    @ManyToOne
-    public SuppliersDetails getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(SuppliersDetails supplier) {
-        this.supplier = supplier;
     }
 
     public PictureType getType() {

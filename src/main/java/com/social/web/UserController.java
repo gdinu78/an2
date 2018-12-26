@@ -102,8 +102,11 @@ public class UserController {
 //            int intFromReq = Integer.decode(fromReq);
 //            int toFromReq = Integer.decode(toReq);
             //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
+            int intId = Integer.decode(id);
             List<Users> usersList = userService.findAll();
-            respHelper.sendOk(resp, usersList.get(0));
+            List<FrontEndUser> frontEndUsers = usersList.stream()
+                    .map(a->new FrontEndUser(a)).collect(Collectors.toList());
+            respHelper.sendOk(resp, frontEndUsers.get(intId));
         }catch (NumberFormatException n){
             respHelper.sendErr(resp,"","Users table param is not a number");
         }
