@@ -197,13 +197,13 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
      */
     toggleStar(contactId): void
     {
-        if ( this.user.starred.includes(contactId) )
+        if ( this.user.favourite.includes(contactId) )
         {
-            this.user.starred.splice(this.user.starred.indexOf(contactId), 1);
+            this.user.favourite.splice(this.user.favourite.indexOf(contactId), 1);
         }
         else
         {
-            this.user.starred.push(contactId);
+            this.user.favourite.push(contactId);
         }
 
         this._contactsService.updateUserData(this.user);

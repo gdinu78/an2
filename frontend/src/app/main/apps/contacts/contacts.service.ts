@@ -93,10 +93,10 @@ export class ContactsService implements Resolve<any>
                         this.contacts = null;
                         this.contacts = response.results;
 
-                        if ( this.filterBy === 'starred' )
+                        if ( this.filterBy === 'favourite' )
                         {
                             this.contacts = this.contacts.filter(_contact => {
-                                return this.user.starred.includes(_contact.userID);
+                                return this.user.favourite.includes(_contact.userID);
                             });
                         }
 
