@@ -1,5 +1,7 @@
 package com.social.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum RolEnum {
     ADMIN("Admin"),
     USER("User"),
@@ -11,6 +13,7 @@ public enum RolEnum {
         this.type = type;
     }
 
+    @JsonValue
     public String getType() {
         return type;
     }

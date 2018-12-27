@@ -54,7 +54,7 @@ export class Contact
     constructor(contact)
     {
         {
-            this.userID = contact.id || FuseUtils.generateGUID();
+            this.userID = contact.userID || FuseUtils.generateGUID();
             this.username = contact.userName || '';
             this.name = contact.name || '';
             this.pics = contact.pics || ['assets/images/avatars/profile.jpg'];

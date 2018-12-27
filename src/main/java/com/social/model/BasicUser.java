@@ -1,5 +1,7 @@
 package com.social.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.social.enums.Gender;
 import com.social.enums.LifeCycle;
 
@@ -13,6 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="username")
 public class BasicUser {
     private int userID;
     @Column(nullable = false)

@@ -1,5 +1,7 @@
 package com.social.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum FavEnum {
     LOW("Low"),
     AVERAGE("Average"),
@@ -11,6 +13,7 @@ public enum FavEnum {
         this.type = type;
     }
 
+    @JsonValue
     public String getType() {
         return type;
     }

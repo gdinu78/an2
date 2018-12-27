@@ -1,5 +1,7 @@
 package com.social.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum BodyType {
     SLIM("Slim"),
     FAT("Fat"),
@@ -11,6 +13,7 @@ public enum BodyType {
         this.type = type;
     }
 
+    @JsonValue
     public String getType() {
         return type;
     }

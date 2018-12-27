@@ -1,5 +1,7 @@
 package com.social.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum LifeCycle {
     CREATED("Created"),
     APPROVED("Approved"),
@@ -13,6 +15,7 @@ public enum LifeCycle {
         this.type = type;
     }
 
+    @JsonValue
     public String getType() {
         return type;
     }

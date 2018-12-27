@@ -1,6 +1,10 @@
 package com.social.helpers;
 
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -23,18 +27,16 @@ public class RespHelper {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public void sendOk(HttpServletResponse resp, Object body){
+        try {
         resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
-        JSONObject resJson = new JSONObject();
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Object> resJson = new HashMap();
         resJson.put("rc", 0);
         resJson.put("message", "OK");
-        if(body instanceof Collection){
-            resJson.put("results", new JSONArray(((Collection) body).toArray()));
-        }else{
-            resJson.put("results", new JSONObject(body));
-        }
-        try {
-            resp.getWriter().print(resJson);
-            logInfo(resp, "Response OK");
+        resJson.put("results",body);
+        String res = mapper.writeValueAsString(resJson);
+        resp.getWriter().print(res);
+        logInfo(resp, "Response OK");
         } catch (IOException e) {
             log.error(e.getStackTrace().toString());
         }

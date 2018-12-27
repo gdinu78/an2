@@ -1,5 +1,7 @@
 package com.social.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum PictureType {
     IMAGES("/upload/images", ".jpg", ".bmp", ".gif", ".png", ".jpeg"),
     VIDEOS("/upload/videos", ".avi", ".mpeg", ".mpg", ".mp4", ".mov", ".mkv", ".flv"),
@@ -17,6 +19,7 @@ public enum PictureType {
         return formats;
     }
 
+    @JsonValue
     public String getPath() {
         return path;
     }

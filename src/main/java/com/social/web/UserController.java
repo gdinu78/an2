@@ -8,6 +8,7 @@ import com.social.model.FrontEndUser;
 import com.social.model.Roles;
 import com.social.model.Users;
 import com.social.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -75,7 +77,8 @@ public class UserController {
                 );
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 final String token = tokenHelper.generateToken(authentication);
-                respHelper.sendOk(resp, token);
+                Users u = userService.findByUsername(loginUser.getUsername());
+                respHelper.sendOk(resp, u);
             }catch (AuthenticationException ae){
                 respHelper.sendErr(resp, "backErr.login_no_account","Account does not exists");
             }
@@ -96,6 +99,7 @@ public class UserController {
             respHelper.sendErr(resp,"","Users table param is not a number");
         }
     }
+
     @GetMapping(path="/getUser")
     public void getUserById(@RequestParam("id") String id, HttpServletResponse resp) {
         try {
@@ -109,6 +113,25 @@ public class UserController {
             respHelper.sendOk(resp, frontEndUsers.get(intId));
         }catch (NumberFormatException n){
             respHelper.sendErr(resp,"","Users table param is not a number");
+        }
+    }
+
+    @PostMapping(path="/updateUser")
+    public void updateUser(@Valid @RequestBody Users user, BindingResult result, HttpServletResponse resp){
+        if(result.hasErrors()){
+            respHelper.sendErr(resp, "backErr.login_validation_err", "Registration error: " + result.getAllErrors().toString());
+        }else {
+            try {
+//            int intFromReq = Integer.decode(fromReq);
+//            int toFromReq = Integer.decode(toReq);
+                //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
+                List<Users> usersList = userService.findAll();
+                List<FrontEndUser> frontEndUsers = usersList.stream()
+                        .map(a->new FrontEndUser(a)).collect(Collectors.toList());
+                respHelper.sendOk(resp, "");
+            }catch (NumberFormatException n){
+                respHelper.sendErr(resp,"","Users table param is not a number");
+            }
         }
     }
 }

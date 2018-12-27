@@ -38,34 +38,34 @@ public class FrontEndUser {
 
     public FrontEndUser(Users u){
         this.userID = u.getUserID();
-        this.annualIncome=u.getAnnualIncome()==null ? "" : u.getAnnualIncome().getType();
+        this.annualIncome=u.getAnnualIncome()==null ? "" : u.getAnnualIncome().name();
         this.birthDate=u.getBirthDate();
         this.bodyType=u.getBodyType()==null ? "" : u.getBodyType().getType();
         this.children=u.getChildren();
         this.descrAboutME=u.getDescrAboutME();
         this.descrLookingFor=u.getDescrLookingFor();
-        this.drinking=u.getDrinking()==null ? "" : u.getDrinking().getType();
-        this.education=u.getEducation()==null ? "" : u.getEducation().getType();
-        this.ethnicity=u.getEthnicity()==null ? "" : u.getEthnicity().getType();
-        this.gender=u.getGender().getType();
-        this.hairColor=u.getHairColor()==null ? "" : u.getHairColor().getType();
+        this.drinking=u.getDrinking()==null ? "" : u.getDrinking().name();
+        this.education=u.getEducation()==null ? "" : u.getEducation().name();
+        this.ethnicity=u.getEthnicity()==null ? "" : u.getEthnicity().name();
+        this.gender=u.getGender().name();
+        this.hairColor=u.getHairColor()==null ? "" : u.getHairColor().name();
         this.heading=u.getHeading();
         this.height=u.getHeight();
-        this.language=u.getLanguage()==null ? "" : u.getLanguage().getType();
+        this.language=u.getLanguage()==null ? "" : u.getLanguage().name();
         this.lastActive=u.getLastActive();
-        this.lifecycle=u.getLifecycle()==null ? "" : u.getLifecycle().getType();
+        this.lifecycle=u.getLifecycle()==null ? "" : u.getLifecycle().name();
         this.location=u.getLocation();
-        this.lifestyle=u.getLifestyle()==null ? "" : u.getLifestyle().getType();
+        this.lifestyle=u.getLifestyle()==null ? "" : u.getLifestyle().name();
         this.memberSince=u.getMemberSince();
         this.name=u.getName();
-        this.netWorth=u.getNetWorth()==null ? "" : u.getNetWorth().getType();
-        this.occupation=u.getOccupation()==null ? "" : u.getOccupation().getType();
+        this.netWorth=u.getNetWorth()==null ? "" : u.getNetWorth().name();
+        this.occupation=u.getOccupation()==null ? "" : u.getOccupation().name();
         this.pics=u.getPics().stream().filter(a->a!=null).map(a->a.getPicturePath()).collect(Collectors.toSet());
-        this.relationship=u.getRelationship()==null ? "" : u.getRelationship().getType();
+        this.relationship=u.getRelationship()==null ? "" : u.getRelationship().name();
         this.favourite=u.getFavorite().stream().filter(a->a!=null && a.getFavUser()!=null).map(a->String.valueOf(a.getFavUser().getUserID()))
                 .collect(Collectors.toSet());
-        this.roles=u.getRoles().stream().map(a->a.getRoleName().getType()).collect(Collectors.toSet());
-        this.smoking=u.getSmoking()==null ? "" : u.getSmoking().getType();
+        this.roles=u.getRoles().stream().map(a->a.getRoleName().name()).collect(Collectors.toSet());
+        this.smoking=u.getSmoking()==null ? "" : u.getSmoking().name();
         this.username=u.getUsername();
     }
 

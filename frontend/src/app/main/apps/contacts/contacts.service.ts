@@ -220,7 +220,7 @@ export class ContactsService implements Resolve<any>
     {
         return new Promise((resolve, reject) => {
 
-            this.backendservice.postResults('/api/users/' + contact.id, {...contact})
+            this.backendservice.postResults('/api/updateUser', {...contact})
                 .subscribe(response => {
                     this.getContacts();
                     resolve(response);
