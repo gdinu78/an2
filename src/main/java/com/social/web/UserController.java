@@ -77,8 +77,7 @@ public class UserController {
                 );
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 final String token = tokenHelper.generateToken(authentication);
-                Users u = userService.findByUsername(loginUser.getUsername());
-                respHelper.sendOk(resp, u);
+                respHelper.sendOk(resp, token);
             }catch (AuthenticationException ae){
                 respHelper.sendErr(resp, "backErr.login_no_account","Account does not exists");
             }
