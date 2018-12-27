@@ -24,7 +24,6 @@ public class RespHelper {
 
     public void sendOk(HttpServletResponse resp, Object body){
         JSONObject resJson = new JSONObject();
-        JSONArray arr = new JSONArray(((ArrayList)body).toArray());
         resJson.put("rc", 0);
         resJson.put("message", "OK");
         resJson.put("results",body);
