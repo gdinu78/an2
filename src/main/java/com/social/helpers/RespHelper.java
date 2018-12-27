@@ -27,13 +27,13 @@ public class RespHelper {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public void sendOk(HttpServletResponse resp, Object body){
-        try {
         resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Object> resJson = new HashMap();
         resJson.put("rc", 0);
         resJson.put("message", "OK");
         resJson.put("results",body);
+        try {
         String res = mapper.writeValueAsString(resJson);
         resp.getWriter().print(res);
         logInfo(resp, "Response OK");
