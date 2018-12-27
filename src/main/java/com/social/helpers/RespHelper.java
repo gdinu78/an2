@@ -23,11 +23,15 @@ public class RespHelper {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public void sendOk(HttpServletResponse resp, Object body){
+        resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
         JSONObject resJson = new JSONObject();
         resJson.put("rc", 0);
         resJson.put("message", "OK");
-        resJson.put("results",body);
-        resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
+        if(body instanceof Collection){
+            resJson.put("results", new JSONArray(((Collection) body).toArray()));
+        }else{
+            resJson.put("results", new JSONObject(body));
+        }
         try {
             resp.getWriter().print(resJson);
             logInfo(resp, "Response OK");
