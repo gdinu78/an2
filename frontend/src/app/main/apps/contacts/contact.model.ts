@@ -57,7 +57,7 @@ export class Contact
             this.userID = contact.userID || FuseUtils.generateGUID();
             this.username = contact.userName || '';
             this.name = contact.name || '';
-            this.pics = contact.pics || ['assets/images/avatars/profile.jpg'];
+            this.pics = contact.pics.length===0? ['assets/images/avatars/profile.jpg'] : contact.pics;
             this.gender = contact.gender || '';
             this.roles = contact.roles || '';
             this.lifecycle = contact.lifecycle || '';

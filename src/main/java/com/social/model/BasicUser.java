@@ -1,6 +1,8 @@
 package com.social.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.social.enums.Gender;
 import com.social.enums.LifeCycle;
@@ -64,19 +66,23 @@ public class BasicUser {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
 
     @Transient
+    @JsonIgnore
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
+    @JsonProperty
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }

@@ -88,9 +88,8 @@ export class ContactsService implements Resolve<any>
     getContacts(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this.backendservice.getResults('/api/users')
+                this.backendservice.getResults('/api/users/getAll')
                     .subscribe((response: any) => {
-                        this.contacts = null;
                         this.contacts = response.results;
 
                         if ( this.filterBy === 'favourite' )
@@ -131,7 +130,7 @@ export class ContactsService implements Resolve<any>
     getUserData(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this.backendservice.getResults('/api/getUser?id=0')
+                this.backendservice.getResults('/api/users/getUser?id=0')
                     .subscribe((response: any) => {
                         this.user = response.results;
                         this.onUserDataChanged.next(this.user);
@@ -220,7 +219,7 @@ export class ContactsService implements Resolve<any>
     {
         return new Promise((resolve, reject) => {
 
-            this.backendservice.postResults('/api/updateUser', {...contact})
+            this.backendservice.postResults('/api/users/updateUser', {...contact})
                 .subscribe(response => {
                     this.getContacts();
                     resolve(response);
@@ -237,7 +236,7 @@ export class ContactsService implements Resolve<any>
     updateUserData(userData): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this.backendservice.postResults('/api/contacts-user/' + this.user.userID, {...userData})
+            this.backendservice.postResults('/api/users/updateUser', {...userData})
                 .subscribe(response => {
                     this.getUserData();
                     this.getContacts();

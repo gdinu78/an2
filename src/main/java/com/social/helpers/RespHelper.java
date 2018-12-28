@@ -1,21 +1,13 @@
 package com.social.helpers;
 
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -29,16 +21,16 @@ public class RespHelper {
     public void sendOk(HttpServletResponse resp, Object body){
         resp.setContentType(MediaType.APPLICATION_JSON_VALUE) ;
         ObjectMapper mapper = new ObjectMapper();
-        Map<String,Object> resJson = new HashMap();
+        Map<String,Object> resJson = new HashMap<>();
         resJson.put("rc", 0);
         resJson.put("message", "OK");
         resJson.put("results",body);
         try {
-        String res = mapper.writeValueAsString(resJson);
-        resp.getWriter().print(res);
-        logInfo(resp, "Response OK");
+            String res = mapper.writeValueAsString(resJson);
+            resp.getWriter().print(res);
+            logInfo(resp, "Response OK");
         } catch (IOException e) {
-            log.error(e.getStackTrace().toString());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -52,7 +44,7 @@ public class RespHelper {
             resp.getWriter().print(resJson);
             logWarn(resp, messageToLog);
         } catch (IOException e) {
-            log.error(e.getStackTrace().toString());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 

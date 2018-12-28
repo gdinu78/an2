@@ -27,6 +27,8 @@ public interface UserService {
 
     List<Users> findAll();
 
+    public Users findByUserID(int id);
+
     Location getClientLocation();
 
     String getClientIpAddr();

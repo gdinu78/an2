@@ -21,12 +21,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.social.constants.SecurityConstants.HEADER_STRING;
+import static com.social.constants.SecurityConstants.TOKEN_PREFIX;
 
 @RestController
 @RequestMapping("/api")
@@ -84,22 +88,20 @@ public class UserController {
         }
     }
 
-    @GetMapping(path="/users")
+    @GetMapping(path="/users/getAll")
     public void getAllUsers(HttpServletResponse resp) {
         try {
 //            int intFromReq = Integer.decode(fromReq);
 //            int toFromReq = Integer.decode(toReq);
             //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
             List<Users> usersList = userService.findAll();
-            List<FrontEndUser> frontEndUsers = usersList.stream()
-                    .map(a->new FrontEndUser(a)).collect(Collectors.toList());
-            respHelper.sendOk(resp, frontEndUsers);
+            respHelper.sendOk(resp, usersList);
         }catch (NumberFormatException n){
             respHelper.sendErr(resp,"","Users table param is not a number");
         }
     }
 
-    @GetMapping(path="/getUser")
+    @GetMapping(path="users/getUser")
     public void getUserById(@RequestParam("id") String id, HttpServletResponse resp) {
         try {
 //            int intFromReq = Integer.decode(fromReq);
@@ -107,15 +109,13 @@ public class UserController {
             //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
             int intId = Integer.decode(id);
             List<Users> usersList = userService.findAll();
-            List<FrontEndUser> frontEndUsers = usersList.stream()
-                    .map(a->new FrontEndUser(a)).collect(Collectors.toList());
-            respHelper.sendOk(resp, frontEndUsers.get(intId));
+            respHelper.sendOk(resp, usersList.get(intId));
         }catch (NumberFormatException n){
             respHelper.sendErr(resp,"","Users table param is not a number");
         }
     }
 
-    @PostMapping(path="/updateUser")
+    @PostMapping(path="users/updateUser")
     public void updateUser(@Valid @RequestBody Users user, BindingResult result, HttpServletResponse resp){
         if(result.hasErrors()){
             respHelper.sendErr(resp, "backErr.login_validation_err", "Registration error: " + result.getAllErrors().toString());
@@ -132,5 +132,24 @@ public class UserController {
                 respHelper.sendErr(resp,"","Users table param is not a number");
             }
         }
+    }
+
+    @GetMapping(path="users/invertFav")
+    public void updateUser(@RequestParam("userID") String userID, HttpServletRequest req, HttpServletResponse resp){
+            try {
+            int id = Integer.decode(userID);
+            Users favUser = userService.findByUserID(id);
+                String header = req.getHeader(HEADER_STRING);
+                if (header != null && header.startsWith(TOKEN_PREFIX)) {
+                    String authToken = header.replace(TOKEN_PREFIX, "");
+                    String username = tokenHelper.getUsernameFromToken(authToken);
+                    Users currentUser = userService.findByUsername(username);
+                    currentUser.getFavourite();
+                }
+
+            respHelper.sendOk(resp, "");
+            }catch (NumberFormatException n){
+                respHelper.sendErr(resp,"","Users table param is not a number");
+            }
     }
 }

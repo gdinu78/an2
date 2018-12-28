@@ -13,7 +13,7 @@ public class Picture {
     private Long id;
     private Users user;
     private PictureType type;
-    private String picturePath;
+    private String url;
     private PictureKind pictureKind;
     private LifeCycle lifecycle;
 
@@ -52,12 +52,12 @@ public class Picture {
         this.lifecycle = lifecycle;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public PictureKind getPictureKind() {

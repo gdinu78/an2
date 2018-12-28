@@ -60,10 +60,10 @@ public class FrontEndUser {
         this.name=u.getName();
         this.netWorth=u.getNetWorth()==null ? "" : u.getNetWorth().name();
         this.occupation=u.getOccupation()==null ? "" : u.getOccupation().name();
-        this.pics=u.getPics().stream().filter(a->a!=null).map(a->a.getPicturePath()).collect(Collectors.toSet());
+        this.pics=u.getPics().stream().filter(a->a!=null).map(a->a.getUrl()).collect(Collectors.toSet());
         this.relationship=u.getRelationship()==null ? "" : u.getRelationship().name();
-        this.favourite=u.getFavorite().stream().filter(a->a!=null && a.getFavUser()!=null).map(a->String.valueOf(a.getFavUser().getUserID()))
-                .collect(Collectors.toSet());
+//        this.favourite=u.getFavourite().stream().filter(a->a!=null && a.getFavUser()!=null).map(a->String.valueOf(a.getFavUser().getUserID()))
+//                .collect(Collectors.toSet());
         this.roles=u.getRoles().stream().map(a->a.getRoleName().name()).collect(Collectors.toSet());
         this.smoking=u.getSmoking()==null ? "" : u.getSmoking().name();
         this.username=u.getUsername();

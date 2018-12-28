@@ -1,16 +1,13 @@
 package com.social.model;
 
-import com.social.enums.FavEnum;
-import com.social.enums.LifeCycle;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "favorite")
-public class Favorite {
+public class Favourite {
     private Long id;
     private Users favUser;
-    private FavEnum favorite;
     private ZonedDateTime favTime;
 
     @Id
@@ -21,14 +18,6 @@ public class Favorite {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public FavEnum getFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(FavEnum favorite) {
-        this.favorite = favorite;
     }
 
     @ManyToOne

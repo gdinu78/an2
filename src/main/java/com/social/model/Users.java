@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "usersDetails")
 public class Users extends BasicUser {
-    private Set<Favorite> favorite;
+    private Set<Favourite> favourite;
     private ZonedDateTime memberSince;
     private ZonedDateTime lastActive;
     private Set<Location> locations;
@@ -38,12 +38,12 @@ public class Users extends BasicUser {
     private String descrLookingForMore;
 
     @OneToMany(mappedBy = "favUser")
-    public Set<Favorite> getFavorite() {
-        return favorite;
+    public Set<Favourite> getFavourite() {
+        return favourite;
     }
 
-    public void setFavorite(Set<Favorite> favorite) {
-        this.favorite = favorite;
+    public void setFavourite(Set<Favourite> favourite) {
+        this.favourite = favourite;
     }
 
     public ZonedDateTime getMemberSince() {
