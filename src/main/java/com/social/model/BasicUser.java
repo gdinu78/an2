@@ -33,9 +33,7 @@ public class BasicUser {
     @NotNull
     @Size(min = 6, max = 100)
     private String password;
-    @Column(nullable = false)
-    @NotNull
-    @Size(min = 6, max = 100)
+    @Column
     private String passwordConfirm;
     @Column(nullable = false)
     @NotNull
@@ -88,7 +86,7 @@ public class BasicUser {
         this.passwordConfirm = passwordConfirm;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Roles> getRoles() {
         return roles;

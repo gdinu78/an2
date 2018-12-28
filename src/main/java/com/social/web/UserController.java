@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -132,19 +133,21 @@ public class UserController {
 
     @GetMapping(path="users/invertFav")
     public void updateUser(@RequestParam("id") String userID, HttpServletRequest req, HttpServletResponse resp){
-            try {
-            Users favUser = userService.findByUserID(UUID.fromString(userID));
-                String header = req.getHeader(HEADER_STRING);
-                if (header != null && header.startsWith(TOKEN_PREFIX)) {
-                    String authToken = header.replace(TOKEN_PREFIX, "");
-                    String username = tokenHelper.getUsernameFromToken(authToken);
-                    Users currentUser = userService.findByUsername(username);
-                    currentUser.getFavourite();
+            String header = req.getHeader(HEADER_STRING);
+            if (header != null && header.startsWith(TOKEN_PREFIX)) {
+                String authToken = header.replace(TOKEN_PREFIX, "");
+                String username = tokenHelper.getUsernameFromToken(authToken);
+                Users currentUser = userService.findByUsername(username);
+                if(currentUser.getFavourite()==null){
+                    currentUser.setFavourite(new HashSet<>());
                 }
-
-            respHelper.sendOk(resp, "");
-            }catch (NumberFormatException n){
-                respHelper.sendErr(resp,"","Users table param is not a number");
+                if(currentUser.getFavourite().contains(userID)){
+                    currentUser.getFavourite().remove(userID);
+                }else{
+                    currentUser.getFavourite().add(userID);
+                }
+                userService.save(currentUser);
             }
+            respHelper.sendOk(resp, "");
     }
 }

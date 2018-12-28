@@ -132,6 +132,9 @@ export class ContactsService implements Resolve<any>
         return new Promise((resolve, reject) => {
                 this.backendservice.getResults('/api/users/getUser?id=0')
                     .subscribe((response: any) => {
+                        if(response.results.favourite==null){
+                            response.results.favourite=[]
+                        }
                         this.user = response.results;
                         this.onUserDataChanged.next(this.user);
                         resolve(this.user);

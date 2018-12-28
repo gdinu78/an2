@@ -1,5 +1,6 @@
 package com.social.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.social.enums.RolEnum;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Roles {
         this.roleName = roleName;
     }
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     public Set<Users> getUsers() {
         return users;
