@@ -130,7 +130,7 @@ export class ContactsService implements Resolve<any>
     getUserData(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this.backendservice.getResults('/api/users/getUser?id=0')
+                this.backendservice.getResults('/api/users/currentUser')
                     .subscribe((response: any) => {
                         if(response.results.favourite==null){
                             response.results.favourite=[]

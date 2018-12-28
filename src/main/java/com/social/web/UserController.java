@@ -150,4 +150,17 @@ public class UserController {
             }
             respHelper.sendOk(resp, "");
     }
+
+    @GetMapping(path="users/currentUser")
+    public void getCurrentUser(HttpServletRequest req, HttpServletResponse resp){
+        String header = req.getHeader(HEADER_STRING);
+        if (header != null && header.startsWith(TOKEN_PREFIX)) {
+            String authToken = header.replace(TOKEN_PREFIX, "");
+            String username = tokenHelper.getUsernameFromToken(authToken);
+            Users currentUser = userService.findByUsername(username);
+            respHelper.sendOk(resp, currentUser);
+        }else{
+            respHelper.sendOk(resp, "");
+        }
+    }
 }
