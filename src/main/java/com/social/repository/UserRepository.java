@@ -6,10 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<Users, Long> {
     Users findByUsername(String username);
-    Users findByUserID(int id);
+    Users findByUserID(UUID id);
     //Page<Users> findAll(PageRequest pageRequest);
     List<Users> findAll();
 }

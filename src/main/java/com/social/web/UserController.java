@@ -4,11 +4,9 @@ import com.social.enums.LifeCycle;
 import com.social.enums.RolEnum;
 import com.social.helpers.RespHelper;
 import com.social.helpers.TokenHelper;
-import com.social.model.FrontEndUser;
 import com.social.model.Roles;
 import com.social.model.Users;
 import com.social.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,9 +22,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.social.constants.SecurityConstants.HEADER_STRING;
@@ -125,8 +123,6 @@ public class UserController {
 //            int toFromReq = Integer.decode(toReq);
                 //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
                 List<Users> usersList = userService.findAll();
-                List<FrontEndUser> frontEndUsers = usersList.stream()
-                        .map(a->new FrontEndUser(a)).collect(Collectors.toList());
                 respHelper.sendOk(resp, "");
             }catch (NumberFormatException n){
                 respHelper.sendErr(resp,"","Users table param is not a number");
@@ -135,10 +131,9 @@ public class UserController {
     }
 
     @GetMapping(path="users/invertFav")
-    public void updateUser(@RequestParam("userID") String userID, HttpServletRequest req, HttpServletResponse resp){
+    public void updateUser(@RequestParam("id") String userID, HttpServletRequest req, HttpServletResponse resp){
             try {
-            int id = Integer.decode(userID);
-            Users favUser = userService.findByUserID(id);
+            Users favUser = userService.findByUserID(UUID.fromString(userID));
                 String header = req.getHeader(HEADER_STRING);
                 if (header != null && header.startsWith(TOKEN_PREFIX)) {
                     String authToken = header.replace(TOKEN_PREFIX, "");

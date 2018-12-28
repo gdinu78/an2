@@ -206,7 +206,7 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
             this.user.favourite.push(contactId);
         }
 
-        this._contactsService.updateUserData(this.user);
+        this._contactsService.updateUserData(contactId);
     }
 }
 

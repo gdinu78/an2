@@ -13,13 +13,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="username")
 public class BasicUser {
-    private int userID;
+    private UUID userID;
     @Column(nullable = false)
     @NotNull
     @Email
@@ -50,11 +51,11 @@ public class BasicUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int getUserID() {
+    public UUID getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(UUID userID) {
         this.userID = userID;
     }
 

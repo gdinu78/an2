@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public List<Users> findAll(){ return userRepository.findAll(); }
 
     @Override
-    public Users findByUserID(int id){ return userRepository.findByUserID(id); }
+    public Users findByUserID(UUID id){ return userRepository.findByUserID(id); }
 
     private Set<SimpleGrantedAuthority> getAuthority(Users user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();

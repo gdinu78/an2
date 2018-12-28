@@ -7,6 +7,7 @@ import com.social.model.Roles;
 import com.social.model.Users;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
     void save(Users user);
@@ -27,7 +28,7 @@ public interface UserService {
 
     List<Users> findAll();
 
-    public Users findByUserID(int id);
+    public Users findByUserID(UUID id);
 
     Location getClientLocation();
 

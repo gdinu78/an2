@@ -233,10 +233,10 @@ export class ContactsService implements Resolve<any>
      * @param userData
      * @returns {Promise<any>}
      */
-    updateUserData(userData): Promise<any>
+    updateUserData(contactId): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this.backendservice.postResults('/api/users/updateUser', {...userData})
+            this.backendservice.getResults('/api/users/invertFav?id=' + contactId)
                 .subscribe(response => {
                     this.getUserData();
                     this.getContacts();

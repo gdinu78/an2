@@ -4,21 +4,22 @@ import com.social.enums.RolEnum;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "role")
 public class Roles {
-    private int id;
+    private UUID id;
     private RolEnum roleName;
     private Set<Users> users;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -5,12 +5,15 @@ import com.social.enums.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "usersDetails")
 public class Users extends BasicUser {
-    private Set<Favourite> favourite;
+
+    //in favorite tinem id-urile userilor favoriti
+    private HashSet<String> favourite;
     private ZonedDateTime memberSince;
     private ZonedDateTime lastActive;
     private Set<Location> locations;
@@ -37,12 +40,12 @@ public class Users extends BasicUser {
     private String descrLookingFor;
     private String descrLookingForMore;
 
-    @OneToMany(mappedBy = "favUser")
-    public Set<Favourite> getFavourite() {
+
+    public HashSet<String> getFavourite() {
         return favourite;
     }
 
-    public void setFavourite(Set<Favourite> favourite) {
+    public void setFavourite(HashSet<String> favourite) {
         this.favourite = favourite;
     }
 
