@@ -40,18 +40,14 @@ public class DbInitializer implements CommandLineRunner {
         this.userRepository.deleteAll();
         this.roleRepository.deleteAll();
 
-        Roles roleAdmin = new Roles();
-        roleAdmin.setRoleName(RolEnum.ADMIN);
-        roleRepository.save(roleAdmin);
-        Roles roleUser = new Roles();
-        roleAdmin.setRoleName(RolEnum.USER);
-        roleRepository.save(roleUser);
-        Roles roleSupplier = new Roles();
-        roleAdmin.setRoleName(RolEnum.SUPPLIER);
-        roleRepository.save(roleSupplier);
+        for (RolEnum roleEnum : RolEnum.values()) {
+            Roles role = new Roles();
+            role.setRoleName(roleEnum);
+            roleRepository.save(role);
+        }
 
         Users user = new Users();
-        user.setRoles(Collections.singleton(roleAdmin));
+        user.setRoles(Collections.singleton(roleRepository.findByRoleName(RolEnum.ADMIN)));
         user.setAgreedTerms(true);
         user.setGender(Gender.MALE);
         user.setUsername("a1@a");
@@ -62,7 +58,7 @@ public class DbInitializer implements CommandLineRunner {
         userRepository.save(user);
 
         user = new Users();
-        user.setRoles(Collections.singleton(roleUser));
+        user.setRoles(Collections.singleton(roleRepository.findByRoleName(RolEnum.USER)));
         user.setAgreedTerms(true);
         user.setGender(Gender.MALE);
         user.setUsername("u1@u");

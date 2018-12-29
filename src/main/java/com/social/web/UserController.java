@@ -18,15 +18,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.social.constants.SecurityConstants.HEADER_STRING;
 import static com.social.constants.SecurityConstants.TOKEN_PREFIX;
@@ -56,7 +54,7 @@ public class UserController {
                 Roles userRole = userService.findByRoleName(RolEnum.USER);
                 user.setRoles(Collections.singleton(userRole));
                 user.setName(user.getName());
-                user.setLifecycle(LifeCycle.CREATED);
+                user.setLifecycle(LifeCycle.APPROVED);
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 userService.save(user);
                 respHelper.sendOk(resp, "");
