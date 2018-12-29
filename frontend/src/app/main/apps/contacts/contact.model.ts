@@ -48,6 +48,7 @@ export class Contact
     //aditional
     avatar: string;
     rolesList: string;
+    locationsList: string;
 
     /**
      * Constructor
@@ -61,11 +62,11 @@ export class Contact
             this.username = contact.username || '';
             this.name = contact.name || '';
             this.pics = contact.pics || [];
-            this.avatar = contact.pics.length===0 ? 'assets/images/avatars/profile.jpg' : contact.pics.
+            this.avatar = this.pics.length===0 ? 'assets/images/avatars/profile.jpg' : contact.pics.
             filter(_pic => {return _pic.pictureKind=='avatar'}).map(_pic => {return _pic.url});
             this.gender = contact.gender || '';
-            this.roles = contact.roles || '';
-            this.rolesList = contact.roles.length===0 ? '' : contact.roles.map(_role => {return _role.roleName}).toString();
+            this.roles = contact.roles || [];
+            this.rolesList = this.roles.length===0 ? '' : contact.roles.map(_role => {return _role.roleName}).toString();
             this.lifecycle = contact.lifecycle || '';
             this.memberSince = contact.memberSince || '';
             this.lastActive = contact.lastActive || '';
@@ -86,7 +87,8 @@ export class Contact
             this.drinking = contact.drinking || '';
             this.language = contact.language || '';
             this.favourite = contact.favourite || [];
-            this.location = contact.location || '';
+            this.location = contact.location || [];
+            this.locationsList = this.location.length===0 ? '' : contact.location.map(_loc => {return _loc.asTxt}).toString();
             this.descrAboutME = contact.descrAboutME || '';
             this.descrLookingFor = contact.descrLookingFor || '';
             this.descrLookingForMore = contact.descrLookingForMore || '';

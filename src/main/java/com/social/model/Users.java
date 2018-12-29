@@ -17,7 +17,6 @@ public class Users extends BasicUser {
     private ZonedDateTime memberSince;
     private ZonedDateTime lastActive;
     private Set<Location> locations;
-    private Set<Logins> logins;
     private String heading;
     private LocalDate birthDate;
     private Lifestyle lifestyle;
@@ -72,15 +71,6 @@ public class Users extends BasicUser {
 
     public void setLocations(Set<Location> locations) {
         this.locations = locations;
-    }
-
-    @OneToMany(mappedBy = "user_login")
-    public Set<Logins> getLogins() {
-        return logins;
-    }
-
-    public void setLogins(Set<Logins> logins) {
-        this.logins = logins;
     }
 
     public String getHeading() {
