@@ -45,6 +45,9 @@ export class Contact
     descrAboutME: string;
     descrLookingFor: string;
     descrLookingForMore: string;
+    //aditional
+    avatar: string;
+    rolesList: string;
 
     /**
      * Constructor
@@ -55,11 +58,14 @@ export class Contact
     {
         {
             this.userID = contact.userID || FuseUtils.generateGUID();
-            this.username = contact.userName || '';
+            this.username = contact.username || '';
             this.name = contact.name || '';
-            this.pics = contact.pics.length===0? ['assets/images/avatars/profile.jpg'] : contact.pics;
+            this.pics = contact.pics || [];
+            this.avatar = contact.pics.length===0 ? 'assets/images/avatars/profile.jpg' : contact.pics.
+            filter(_pic => {return _pic.pictureKind=='avatar'}).map(_pic => {return _pic.url});
             this.gender = contact.gender || '';
             this.roles = contact.roles || '';
+            this.rolesList = contact.roles.length===0 ? '' : contact.roles.map(_role => {return _role.roleName}).toString();
             this.lifecycle = contact.lifecycle || '';
             this.memberSince = contact.memberSince || '';
             this.lastActive = contact.lastActive || '';

@@ -136,6 +136,10 @@ export class ContactsService implements Resolve<any>
                             response.results.favourite=[]
                         }
                         this.user = response.results;
+                        this.user.avatar = this.user.pics.length===0 ? 'assets/images/avatars/profile.jpg' : this.user.pics.
+                        filter(_pic => {return _pic.pictureKind=='avatar'}).map(_pic => {return _pic.url});
+                        this.user.rolesList = this.user.roles.length===0 ? '' : this.user.roles
+                            .map(_role => {return _role.roleName}).toString();
                         this.onUserDataChanged.next(this.user);
                         resolve(this.user);
                     }, reject);
