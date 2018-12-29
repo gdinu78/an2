@@ -8,7 +8,7 @@
         </mat-toolbar-row>
 
         <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
-            <img [src]="contact.pics" class="avatar contact-avatar huge m-0"
+            <img [src]="contact.avatar" class="avatar contact-avatar huge m-0"
                  [alt]="contact.name"/>
             <div class="contact-name mt-8">{{contact.name}}</div>
         </mat-toolbar-row>
@@ -37,7 +37,7 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Gender</mat-label>
-                    <mat-icon matSuffix class="secondary-text">star</mat-icon>
+                    <mat-icon matSuffix class="secondary-text">face</mat-icon>
                     <input name="gender" formControlName="gender" matInput>
                 </mat-form-field>
             </div>
@@ -45,7 +45,7 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Member since</mat-label>
-                    <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                    <mat-icon matSuffix class="secondary-text">timelapse</mat-icon>
                     <input formControlName="memberSince" matInput>
                 </mat-form-field>
             </div>
@@ -53,15 +53,15 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Roles</mat-label>
-                    <mat-icon matSuffix class="secondary-text">email</mat-icon>
-                    <input name="roles" formControlName="roles" matInput>
+                    <mat-icon matSuffix class="secondary-text">group</mat-icon>
+                    <input name="roles" formControlName="rolesList" matInput>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Last active</mat-label>
-                    <mat-icon matSuffix class="secondary-text">domain</mat-icon>
+                    <mat-icon matSuffix class="secondary-text">access_time</mat-icon>
                     <input name="lastActive" formControlName="lastActive" matInput>
                 </mat-form-field>
             </div>
@@ -69,7 +69,7 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Birthday</mat-label>
-                    <mat-icon matSuffix class="secondary-text">work</mat-icon>
+                    <mat-icon matSuffix class="secondary-text">cake</mat-icon>
                     <input name="birthDate" formControlName="birthDate" matInput>
                 </mat-form-field>
             </div>
