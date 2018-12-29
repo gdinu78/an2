@@ -20,6 +20,14 @@
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Id</mat-label>
+                    <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                    <input name="name" formControlName="id" matInput required>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Name</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
                     <input name="name" formControlName="name" matInput required>
@@ -44,6 +52,14 @@
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Lifecycle</mat-label>
+                    <mat-icon matSuffix class="secondary-text">face</mat-icon>
+                    <input name="lifecycle" formControlName="lifecycle" matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Member since</mat-label>
                     <mat-icon matSuffix class="secondary-text">timelapse</mat-icon>
                     <input formControlName="memberSince" matInput>
@@ -54,15 +70,15 @@
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Roles</mat-label>
                     <mat-icon matSuffix class="secondary-text">group</mat-icon>
-                    <input name="roles" formControlName="rolesList" matInput>
+                    <input name="rolesList" formControlName="rolesList" matInput>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-form-field appearance="outline" fxFlex>
+                <mat-form-field appearance="outline" fxFlex disabled="true">
                     <mat-label>Last active</mat-label>
                     <mat-icon matSuffix class="secondary-text">access_time</mat-icon>
-                    <input name="lastActive" formControlName="lastActive" matInput [disabled]="true">
+                    <input name="lastActive" formControlName="lastActive" matInput>
                 </mat-form-field>
             </div>
 

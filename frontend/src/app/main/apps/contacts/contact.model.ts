@@ -58,7 +58,7 @@ export class Contact
     constructor(contact)
     {
         {
-            this.userID = contact.userID || FuseUtils.generateGUID();
+            this.userID = contact.userID || '';
             this.username = contact.username || '';
             this.name = contact.name || '';
             this.pics = contact.pics || [];
