@@ -1,5 +1,6 @@
 package com.social.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.social.enums.*;
 
 import javax.persistence.*;
@@ -69,6 +70,7 @@ public class Users extends BasicUser {
         return locations;
     }
 
+    @JsonIgnore
     public void setLocations(Set<Location> locations) {
         this.locations = locations;
     }
