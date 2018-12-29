@@ -99,10 +99,10 @@ export class ContactsService implements Resolve<any>
                             });
                         }
 
-                        if ( this.filterBy === 'frequent' )
+                        if ( this.filterBy === 'w_approval' )
                         {
                             this.contacts = this.contacts.filter(_contact => {
-                                return this.user.frequentContacts.includes(_contact.userID);
+                                return _contact.lifecycle.includes("Waiting_approval");
                             });
                         }
 

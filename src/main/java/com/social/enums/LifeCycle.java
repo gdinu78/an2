@@ -3,10 +3,8 @@ package com.social.enums;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum LifeCycle {
-    CREATED("Created"),
+    WAITING_APPROVAL("Waiting_approval"),
     APPROVED("Approved"),
-    SILVER("Silver"),
-    GOLD("Gold"),
     DELETED("Deleted");
 
     private String type;
