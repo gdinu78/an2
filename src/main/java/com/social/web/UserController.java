@@ -4,6 +4,7 @@ import com.social.enums.LifeCycle;
 import com.social.enums.RolEnum;
 import com.social.helpers.RespHelper;
 import com.social.helpers.TokenHelper;
+import com.social.model.Location;
 import com.social.model.Roles;
 import com.social.model.Users;
 import com.social.service.UserService;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.social.constants.SecurityConstants.HEADER_STRING;
 import static com.social.constants.SecurityConstants.TOKEN_PREFIX;
@@ -56,6 +58,10 @@ public class UserController {
                 user.setName(user.getName());
                 user.setLifecycle(LifeCycle.APPROVED);
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                Location loc = userService.getClientLocation();
+                if(loc!=null) {
+                    user.setLocations(Collections.singleton(loc));
+                }
                 userService.save(user);
                 respHelper.sendOk(resp, "");
             } else {
@@ -78,6 +84,13 @@ public class UserController {
                 );
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 final String token = tokenHelper.generateToken(authentication);
+                Location loc = userService.getClientLocation();
+                if(loc!=null) {
+                    Set<Location> locSet = loginUser.getLocations();
+                    locSet.add(loc);
+                    loginUser.setLocations(locSet);
+                }
+                userService.save(loginUser);
                 respHelper.sendOk(resp, token);
             }catch (AuthenticationException ae){
                 respHelper.sendErr(resp, "backErr.login_no_account","Account does not exists");
@@ -126,6 +139,17 @@ public class UserController {
             }catch (NumberFormatException n){
                 respHelper.sendErr(resp,"","Users table param is not a number");
             }
+        }
+    }
+
+    @PostMapping(path="users/newUser")
+    public void newUser(@Valid @RequestBody Users user, BindingResult result, HttpServletResponse resp){
+        if(result.hasErrors()){
+            respHelper.sendErr(resp, "backErr.login_validation_err", "Registration error: " + result.getAllErrors().toString());
+        }else {
+                //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
+                userService.save(user);
+                respHelper.sendOk(resp, "");
         }
     }
 

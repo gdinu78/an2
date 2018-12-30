@@ -21,11 +21,11 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="username")
 public class BasicUser {
     private UUID userID;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull
     @Email
     private String username;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull
     @Size(min = 4, max = 30)
     private String name;

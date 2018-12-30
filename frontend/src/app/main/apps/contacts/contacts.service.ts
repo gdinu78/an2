@@ -234,6 +234,18 @@ export class ContactsService implements Resolve<any>
         });
     }
 
+    newContact(contact): Promise<any>
+    {
+        return new Promise((resolve, reject) => {
+
+            this.backendservice.postResults('/api/users/newUser', {...contact})
+                .subscribe(response => {
+                    this.getContacts();
+                    resolve(response);
+                });
+        });
+    }
+
     /**
      * Update user data
      *

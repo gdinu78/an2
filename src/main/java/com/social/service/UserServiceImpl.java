@@ -126,47 +126,50 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public Location getClientLocation() {
         Location location=null;
+        String ip = getClientIpAddr();
+        if (ip != null) {
         try {
-            URL url = new URL("http://ip-api.com/json/"+"89.137.253.13");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Accept", "application/json");
+                URL url = new URL("http://ip-api.com/json/" + ip);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
 
-            if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
+                if (conn.getResponseCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + conn.getResponseCode());
+                }
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(
+                        (conn.getInputStream())));
+                ObjectMapper mapper = new ObjectMapper();
+                Map<String, Object> jsonMap = mapper.readValue(br, Map.class);
+                if (jsonMap.get("status").equals("success")) {
+                    location = new Location();
+                    location.setCountry((String) jsonMap.get("country"));
+                    location.setRegionName((String) jsonMap.get("regionName"));
+                    location.setCity((String) jsonMap.get("city"));
+                    location.setZipCode((String) jsonMap.get("zip"));
+                    location.setLat((Double) jsonMap.get("lat"));
+                    location.setLon((Double) jsonMap.get("lon"));
+                    location.setIsp((String) jsonMap.get("isp"));
+                    location.setOrg((String) jsonMap.get("org"));
+                    location.setAsTxt((String) jsonMap.get("as"));
+                    location.setIpAddresss((String) jsonMap.get("query"));
+                    location.setZonedDateTime(ZonedDateTime.now());
+                } else {
+                    //fail
+                }
+                conn.disconnect();
+
+            } catch(MalformedURLException e){
+
+                e.printStackTrace();
+
+            } catch(IOException e){
+
+                e.printStackTrace();
+
             }
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (conn.getInputStream())));
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, Object> jsonMap = mapper.readValue(br, Map.class);
-            if(jsonMap.get("status").equals("success")){
-                location=new Location();
-                location.setCountry((String) jsonMap.get("country"));
-                location.setRegionName((String) jsonMap.get("regionName"));
-                location.setCity((String) jsonMap.get("city"));
-                location.setZipCode((String) jsonMap.get("zip"));
-                location.setLat((Double) jsonMap.get("lat"));
-                location.setLon((Double) jsonMap.get("lon"));
-                location.setIsp((String) jsonMap.get("isp"));
-                location.setOrg((String) jsonMap.get("org"));
-                location.setAsTxt((String) jsonMap.get("as"));
-                location.setIpAddresss((String) jsonMap.get("query"));
-                location.setZonedDateTime(ZonedDateTime.now());
-            }else{
-                //fail
-            }
-            conn.disconnect();
-
-        } catch (MalformedURLException e) {
-
-            e.printStackTrace();
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
         }
         return location;
     }
