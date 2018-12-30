@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import {MatDialog, MatDialogRef, MatPaginator} from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -22,6 +22,8 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
 {
     @ViewChild('dialogContent')
     dialogContent: TemplateRef<any>;
+    @ViewChild(MatPaginator)
+    _paginator: MatPaginator;
 
     contacts: any;
     user: any;
@@ -59,8 +61,7 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.dataSource = new FilesDataSource(this._contactsService);
-
+        this.dataSource = new FilesDataSource(this._contactsService,this._paginator);
         this._contactsService.onContactsChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(contacts => {
@@ -216,9 +217,11 @@ export class FilesDataSource extends DataSource<any>
      * Constructor
      *
      * @param {ContactsService} _contactsService
+     * @param {MatPaginator} _paginator
      */
     constructor(
-        private _contactsService: ContactsService
+        private _contactsService: ContactsService,
+        private _paginator: MatPaginator
     )
     {
         super();
