@@ -60,27 +60,19 @@ export class ContactsContactFormDialogComponent
     createContactForm(): FormGroup
     {
         return this._formBuilder.group({
-            // id      : [this.contact.userID],
-            // name    : [this.contact.name],
-            // gender: [this.contact.gender],
-            // pics  : [this.contact.pics],
-            // nickname: [this.contact.nickname],
-            // company : [this.contact.company],
-            // jobTitle: [this.contact.jobTitle],
-            // email   : [this.contact.username],
-            // phone   : [this.contact.phone],
-            // address : [this.contact.address],
-            // birthday: [this.contact.birthday],
-            // notes   : [this.contact.notes]
 
             userID: [this.contact.userID],
             username: [this.contact.username],
             name: [this.contact.name],
+            pics: [this.contact.pics],
+            avatar: [this.contact.pics.length===0 ? 'assets/images/avatars/profile.jpg' : this.contact.pics.
+                filter(_pic => {return _pic['pictureKind'] == 'avatar'}).map(_pic => {return _pic['url']})],
             gender: [this.contact.gender],
             roles: [this.contact.roles],
+            rolesList: [this.contact.roles.length===0 ? '' : this.contact.roles.map(_role => {return _role['roleName']}).toString()],
             lifecycle: [this.contact.lifecycle],
-            memberSince: [this.contact.memberSince],
-            lastActive: [this.contact.lastActive],
+            memberSince: [{value: this.contact.memberSince, disabled: true}],
+            lastActive: [{value: this.contact.lastActive, disabled: true}],
             heading: [this.contact.heading],
             birthDate: [this.contact.birthDate],
             lifestyle: [this.contact.lifestyle],
@@ -97,8 +89,9 @@ export class ContactsContactFormDialogComponent
             smoking: [this.contact.smoking],
             drinking: [this.contact.drinking],
             language: [this.contact.language],
-            pics: [this.contact.pics],
             location: [this.contact.location],
+            locations: [this.contact.locations],
+            locationsList: [{value: this.contact.locations.length===0 ? '' : this.contact.locations.map(_loc => {return _loc['asTxt']}).toString(), disabled: true}],
             descrAboutME: [this.contact.descrAboutME],
             descrLookingFor: [this.contact.descrLookingFor],
             descrLookingForMore: [this.contact.descrLookingForMore]

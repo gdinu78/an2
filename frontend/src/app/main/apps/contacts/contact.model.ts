@@ -42,6 +42,7 @@ export class Contact
     language: string;
     pics: [];
     location: string;
+    locations: [];
     descrAboutME: string;
     descrLookingFor: string;
     descrLookingForMore: string;
@@ -87,8 +88,9 @@ export class Contact
             this.drinking = contact.drinking || '';
             this.language = contact.language || '';
             this.favourite = contact.favourite || [];
-            this.location = contact.location || [];
-            this.locationsList = this.location.length===0 ? '' : contact.location.map(_loc => {return _loc.asTxt}).toString();
+            this.location = contact.location || '';
+            this.locations = contact.locations || [];
+            this.locationsList = this.locations.length===0 ? '' : contact.locations.map(_loc => {return _loc.asTxt}).toString();
             this.descrAboutME = contact.descrAboutME || '';
             this.descrLookingFor = contact.descrLookingFor || '';
             this.descrLookingForMore = contact.descrLookingForMore || '';

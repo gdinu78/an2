@@ -53,6 +53,7 @@ public class Users extends BasicUser {
         return memberSince;
     }
 
+    @JsonIgnore
     public void setMemberSince(ZonedDateTime memberSince) {
         this.memberSince = memberSince;
     }
@@ -61,6 +62,7 @@ public class Users extends BasicUser {
         return lastActive;
     }
 
+    @JsonIgnore
     public void setLastActive(ZonedDateTime lastActive) {
         this.lastActive = lastActive;
     }
