@@ -2,6 +2,10 @@ package com.social.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum PictureType {
     IMAGES("/upload/images", ".jpg", ".bmp", ".gif", ".png", ".jpeg"),
     VIDEOS("/upload/videos", ".avi", ".mpeg", ".mpg", ".mp4", ".mov", ".mkv", ".flv"),
@@ -22,5 +26,9 @@ public enum PictureType {
     @JsonValue
     public String getPath() {
         return path;
+    }
+
+    public static List<String> getAllTypes(){
+        return Arrays.stream(PictureType.class.getEnumConstants()).map(PictureType::getPath).collect(Collectors.toList());
     }
 }

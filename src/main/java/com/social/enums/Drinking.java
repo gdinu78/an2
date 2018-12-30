@@ -6,14 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum LifeCycle {
-    WAITING_APPROVAL("Waiting_approval"),
-    APPROVED("Approved"),
-    DELETED("Deleted");
+public enum Drinking {
+    LOW("Low"),
+    AVERAGE("Average"),
+    HIGH("High");
 
     private String type;
 
-    LifeCycle(String type) {
+    Drinking(String type) {
         this.type = type;
     }
 
@@ -23,6 +23,6 @@ public enum LifeCycle {
     }
 
     public static List<String> getAllTypes(){
-        return Arrays.stream(LifeCycle.class.getEnumConstants()).map(LifeCycle::getType).collect(Collectors.toList());
+        return Arrays.stream(Drinking.class.getEnumConstants()).map(Drinking::getType).collect(Collectors.toList());
     }
 }

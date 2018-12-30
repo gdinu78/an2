@@ -1,7 +1,7 @@
 package com.social.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.social.enums.RolEnum;
+import com.social.enums.*;
 import com.social.model.Location;
 import com.social.model.Picture;
 import com.social.model.Roles;
@@ -211,5 +211,29 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             ip = request.getRemoteAddr();
         }
         return ip;
+    }
+
+    @Override
+    public Map<String,List<String>> getAllEnumTypes(){
+        Map<String,List<String>> result = new HashMap<>();
+        result.put(BodyType.class.getSimpleName(),BodyType.getAllTypes());
+        result.put(Drinking.class.getSimpleName(),Drinking.getAllTypes());
+        result.put(Education.class.getSimpleName(),Education.getAllTypes());
+        result.put(Ethnicity.class.getSimpleName(),Ethnicity.getAllTypes());
+        result.put(Gender.class.getSimpleName(),Gender.getAllTypes());
+        result.put(HairColor.class.getSimpleName(),HairColor.getAllTypes());
+        result.put(Income.class.getSimpleName(),Income.getAllTypes());
+        result.put(Language.class.getSimpleName(),Language.getAllTypes());
+        result.put(LifeCycle.class.getSimpleName(),LifeCycle.getAllTypes());
+        result.put(Lifestyle.class.getSimpleName(),Lifestyle.getAllTypes());
+        result.put(Occupation.class.getSimpleName(),Occupation.getAllTypes());
+        result.put(PictureKind.class.getSimpleName(),PictureKind.getAllTypes());
+        result.put(PictureType.class.getSimpleName(),PictureType.getAllTypes());
+        result.put(Relationship.class.getSimpleName(),Relationship.getAllTypes());
+        result.put(RolEnum.class.getSimpleName(),RolEnum.getAllTypes());
+        result.put(Smoking.class.getSimpleName(),Smoking.getAllTypes());
+        result.put(Worth.class.getSimpleName(),Worth.getAllTypes());
+        result.put(Permission.class.getSimpleName(),Permission.getAllTypes());
+        return result;
     }
 }

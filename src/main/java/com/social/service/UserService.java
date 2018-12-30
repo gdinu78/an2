@@ -7,6 +7,7 @@ import com.social.model.Roles;
 import com.social.model.Users;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface UserService {
@@ -33,4 +34,6 @@ public interface UserService {
     Location getClientLocation();
 
     String getClientIpAddr();
+
+    Map<String,List<String>> getAllEnumTypes();
 }

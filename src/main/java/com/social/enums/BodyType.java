@@ -2,6 +2,10 @@ package com.social.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum BodyType {
     SLIM("Slim"),
     FAT("Fat"),
@@ -16,5 +20,9 @@ public enum BodyType {
     @JsonValue
     public String getType() {
         return type;
+    }
+
+    public static List<String> getAllTypes(){
+        return Arrays.stream(BodyType.class.getEnumConstants()).map(BodyType::getType).collect(Collectors.toList());
     }
 }

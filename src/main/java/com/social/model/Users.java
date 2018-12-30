@@ -32,7 +32,7 @@ public class Users extends BasicUser {
     private Relationship relationship;
     private int children;
     private Smoking smoking;
-    private Dinking drinking;
+    private Drinking drinking;
     private Language language;
     private Set<Picture> pics;
     private String location;
@@ -230,11 +230,11 @@ public class Users extends BasicUser {
         this.smoking = smoking;
     }
 
-    public Dinking getDrinking() {
+    public Drinking getDrinking() {
         return drinking;
     }
 
-    public void setDrinking(Dinking drinking) {
+    public void setDrinking(Drinking drinking) {
         this.drinking = drinking;
     }
 

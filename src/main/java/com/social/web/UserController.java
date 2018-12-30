@@ -1,5 +1,6 @@
 package com.social.web;
 
+import com.social.enums.BodyType;
 import com.social.enums.LifeCycle;
 import com.social.enums.RolEnum;
 import com.social.helpers.RespHelper;
@@ -186,5 +187,10 @@ public class UserController {
         }else{
             respHelper.sendOk(resp, "");
         }
+    }
+
+    @GetMapping(path="users/getSelectors")
+    public void getSelectors(HttpServletResponse resp){
+            respHelper.sendOk(resp, userService.getAllEnumTypes());
     }
 }
