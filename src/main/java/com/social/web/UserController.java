@@ -53,17 +53,19 @@ public class UserController {
             respHelper.sendErr(resp, "backErr.reg_validation_err", "Registration error: " + result.getAllErrors().toString());
         }else {
             if (user.getPassword().equals(user.getPasswordConfirm())) {
-                Roles userRole = userService.findByRoleName(RolEnum.USER);
-                user.setRoles(Collections.singleton(userRole));
-                user.setName(user.getName());
-                user.setLifecycle(LifeCycle.APPROVED);
-                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-                Location loc = userService.getClientLocation();
-                if(loc!=null) {
-                    user.setLocations(Collections.singleton(loc));
+                if(userService.findByUsername(user.getUsername())!=null) {
+                    Roles userRole = userService.findByRoleName(RolEnum.USER);
+                    user.setRoles(Collections.singleton(userRole));
+                    user.setName(user.getName());
+                    user.setLifecycle(LifeCycle.APPROVED);
+                    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                    Location loc = userService.getClientLocation();
+                    if (loc != null) {
+                        user.setLocations(Collections.singleton(loc));
+                    }
+                    userService.save(user);
+                    respHelper.sendOk(resp, "");
                 }
-                userService.save(user);
-                respHelper.sendOk(resp, "");
             } else {
                 respHelper.sendErr(resp, "backErr.reg_pass_no_match", "Registration error: Password not same with confirmation password");
             }
