@@ -18,7 +18,7 @@
 
         <form [formGroup]="contactForm">
 
-            <div fxLayout="row" fxLayoutAlign="start start">
+            <div fxLayout="row" fxLayoutAlign="start start" *ngIf="action === 'edit'">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Id</mat-label>
                     <input name="userID" formControlName="userID" matInput required>
@@ -38,6 +38,14 @@
                     <mat-label>Email</mat-label>
                     <mat-icon matSuffix class="secondary-text">email</mat-icon>
                     <input name="username" formControlName="username" matInput required type="email">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start" *ngIf="action !== 'edit'">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Password</mat-label>
+                    <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                    <input name="password" formControlName="password" matInput required type="password">
                 </mat-form-field>
             </div>
 

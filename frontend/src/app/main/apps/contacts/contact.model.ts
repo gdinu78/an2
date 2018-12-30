@@ -1,22 +1,9 @@
-import { FuseUtils } from '@fuse/utils';
 
 export class Contact
 {
-    // id: string; userid
-    // name: string;name
-    // lastName: string;
-    // avatar: string;to do
-    // nickname: string;noneed
-    // company: string;noneed
-    // jobTitle: string;noneed
-    // email: string;username
-    // phone: string;noneed
-    // address: string;noneed
-    // birthday: string;birthdate
-    // notes: string;descrAboutME
-
     userID: string;
     username: string;
+    password:string;
     name: string;
     gender: string;
     favourite: [];
@@ -61,6 +48,7 @@ export class Contact
         {
             this.userID = contact.userID || '';
             this.username = contact.username || '';
+            this.password = contact.password || '';
             this.name = contact.name || '';
             this.pics = contact.pics || [];
             this.avatar = this.pics.length===0 ? 'assets/images/avatars/profile.jpg' : contact.pics.
