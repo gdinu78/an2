@@ -37,6 +37,7 @@ export class Contact
     avatar: string;
     rolesList: string;
     locationsList: string;
+    languageList: string;
 
     /**
      * Constructor
@@ -74,7 +75,8 @@ export class Contact
             this.children = contact.children || '';
             this.smoking = contact.smoking || '';
             this.drinking = contact.drinking || '';
-            this.language = contact.language || '';
+            this.language = contact.language || [];
+            this.languageList = this.language.length===0 ? '' : contact.language.toString();
             this.favourite = contact.favourite || [];
             this.location = contact.location || '';
             this.locations = contact.locations || [];

@@ -33,7 +33,7 @@ public class Users extends BasicUser {
     private int children;
     private Smoking smoking;
     private Drinking drinking;
-    private Language language;
+    private HashSet<Language> language;
     private Set<Picture> pics;
     private String location;
     private String descrAboutME;
@@ -238,11 +238,11 @@ public class Users extends BasicUser {
         this.drinking = drinking;
     }
 
-    public Language getLanguage() {
+    public HashSet<Language> getLanguage() {
         return language;
     }
 
-    public void setLanguage(Language language) {
+    public void setLanguage(HashSet<Language> language) {
         this.language = language;
     }
 }

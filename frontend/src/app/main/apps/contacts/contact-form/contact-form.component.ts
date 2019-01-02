@@ -90,6 +90,7 @@ export class ContactsContactFormDialogComponent
             smoking: [this.contact.smoking],
             drinking: [this.contact.drinking],
             language: [this.contact.language],
+            languageList: [this.contact.language.length===0 ? '' : this.contact.language.toString()],
             location: [this.contact.location],
             locations: [this.contact.locations],
             locationsList: [{value: this.contact.locations.length===0 ? '' : this.contact.locations.map(_loc => {return _loc['asTxt']}).toString(), disabled: true}],

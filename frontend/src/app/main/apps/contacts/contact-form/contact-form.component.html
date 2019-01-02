@@ -52,16 +52,22 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Gender</mat-label>
-                    <mat-icon matSuffix class="secondary-text">face</mat-icon>
-                    <input name="gender" formControlName="gender" matInput required>
+                    <mat-select name="gender" formControlName="gender">
+                        <mat-option *ngFor="let item of allSelectors.Gender" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Lifecycle</mat-label>
-                    <mat-icon matSuffix class="secondary-text">face</mat-icon>
-                    <input name="lifecycle" formControlName="lifecycle" matInput required>
+                    <mat-select name="lifecycle" formControlName="lifecycle">
+                        <mat-option *ngFor="let item of allSelectors.LifeCycle" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
@@ -125,24 +131,33 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Lifestyle</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="lifestyle" formControlName="lifestyle" matInput>
+                    <mat-select name="lifestyle" formControlName="lifestyle">
+                        <mat-option *ngFor="let item of allSelectors.Lifestyle" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Net worth</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="netWorth" formControlName="netWorth" matInput>
+                    <mat-select name="netWorth" formControlName="netWorth">
+                        <mat-option *ngFor="let item of allSelectors.Worth" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Annual income</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="annualIncome" formControlName="annualIncome" matInput>
+                    <mat-select name="annualIncome" formControlName="annualIncome">
+                        <mat-option *ngFor="let item of allSelectors.Income" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
@@ -150,47 +165,58 @@
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Height</mat-label>
                     <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="height" formControlName="height" matInput>
+                    <input name="height" formControlName="height" matInput type="number">
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Body type</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="bodyType" formControlName="bodyType" matInput>
+                    <mat-select name="bodyType" formControlName="bodyType">
+                        <mat-option *ngFor="let item of allSelectors.BodyType" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Ethnicity</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="ethnicity" formControlName="ethnicity" matInput>
+                    <mat-select name="ethnicity" formControlName="ethnicity">
+                        <mat-option *ngFor="let item of allSelectors.Ethnicity" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Hair color</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="hairColor" formControlName="hairColor" matInput>
+                    <mat-select name="hairColor" formControlName="hairColor">
+                        <mat-option *ngFor="let item of allSelectors.HairColor" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Occupation</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="occupation" formControlName="occupation" matInput>
+                    <mat-select name="occupation" formControlName="occupation">
+                        <mat-option *ngFor="let item of allSelectors.Occupation" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Education</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <mat-select name=""education formControlName="education">
+                    <mat-select name="education" formControlName="education">
                         <mat-option *ngFor="let item of allSelectors.Education" [value]="item">
                             {{item}}
                         </mat-option>
@@ -201,8 +227,11 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Relationship</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="relationship" formControlName="relationship" matInput>
+                    <mat-select name="relationship" formControlName="relationship">
+                        <mat-option *ngFor="let item of allSelectors.Relationship" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
@@ -210,31 +239,37 @@
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Children</mat-label>
                     <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="children" formControlName="children" matInput>
+                    <input name="children" formControlName="children" matInput type="number">
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Smoking</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="smoking" formControlName="smoking" matInput>
+                    <mat-select name="smoking" formControlName="smoking">
+                        <mat-option *ngFor="let item of allSelectors.Smoking" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Drinking</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="drinking" formControlName="drinking" matInput>
+                    <mat-select name="drinking" formControlName="drinking">
+                        <mat-option *ngFor="let item of allSelectors.Drinking" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Language</mat-label>
-                    <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="language" formControlName="language" matInput>
+                    <mat-icon matSuffix class="secondary-text">group</mat-icon>
+                    <input name="languageList" formControlName="languageList" matInput>
                 </mat-form-field>
             </div>
 
