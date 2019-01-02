@@ -128,7 +128,8 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
             panelClass: 'contact-form-dialog',
             data      : {
                 contact: contact,
-                action : 'edit'
+                action : 'edit',
+                allSelectors: this.allSelectors
             }
         });
 

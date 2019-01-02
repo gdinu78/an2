@@ -17,6 +17,7 @@ export class ContactsContactFormDialogComponent
     contact: Contact;
     contactForm: FormGroup;
     dialogTitle: string;
+    allSelectors: any;
 
     /**
      * Constructor
@@ -33,7 +34,7 @@ export class ContactsContactFormDialogComponent
     {
         // Set the defaults
         this.action = _data.action;
-
+        this.allSelectors = _data.allSelectors;
         if ( this.action === 'edit' )
         {
             this.dialogTitle = 'Edit Contact';

@@ -190,7 +190,11 @@
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Education</mat-label>
                     <mat-icon matSuffix class="secondary-text">home</mat-icon>
-                    <input name="education" formControlName="education" matInput>
+                    <mat-select name=""education formControlName="education">
+                        <mat-option *ngFor="let item of allSelectors.Education" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 

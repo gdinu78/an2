@@ -11,7 +11,8 @@ import {
     MatPaginatorModule,
     MatRippleModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatOptionModule, MatSelectModule
 } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
@@ -55,6 +56,8 @@ const routes: Routes = [
         MatRippleModule,
         MatTableModule,
         MatToolbarModule,
+        MatOptionModule,
+        MatSelectModule,
         MatPaginatorModule,
         FuseSharedModule,
         FuseConfirmDialogModule,
