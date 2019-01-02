@@ -13,11 +13,11 @@ import java.util.Set;
 @Table(name = "usersDetails")
 public class Users extends BasicUser {
 
-    //in favorite tinem id-urile userilor favoriti
-    private HashSet<String> favourite;
     private ZonedDateTime memberSince;
     private ZonedDateTime lastActive;
     private Set<Location> locations;
+
+    private HashSet<String> favourite;
     private String heading;
     private LocalDate birthDate;
     private Lifestyle lifestyle;

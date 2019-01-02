@@ -10,6 +10,8 @@ import com.social.repository.LocationRepository;
 import com.social.repository.PicturesRepository;
 import com.social.repository.RoleRepository;
 import com.social.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +33,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserDetailsService, UserService {
@@ -47,10 +50,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     @Override
     public void save(Users user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<Roles>(roleRepository.findAll()));
+        //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //user.setRoles(new HashSet<Roles>(roleRepository.findAll()));
         userRepository.save(user);
     }
 
@@ -235,5 +240,47 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         result.put(Worth.class.getSimpleName(),Worth.getAllTypes());
         result.put(Permission.class.getSimpleName(),Permission.getAllTypes());
         return result;
+    }
+
+    @Override
+    public boolean updateUserAsAdminAndSave(Users userFrom){
+        try {
+            Users userTo = findByUsername(userFrom.getUsername());
+            userTo.setUsername(userFrom.getUsername());
+            userTo.setName(userFrom.getName());
+            //Set<Roles> roles = userFrom.getRoles().stream().map(a-> roleRepository.findByRoleName(a.getRoleName())).collect(Collectors.toSet());
+            userTo.setRoles(userFrom.getRoles());
+            userTo.setGender(userFrom.getGender());
+            userTo.setLifecycle(userFrom.getLifecycle());
+            userTo.setLocation(userFrom.getLocation());
+            userTo.setLocations(userFrom.getLocations());
+            userTo.setFavourite(userFrom.getFavourite());
+            userTo.setAnnualIncome(userFrom.getAnnualIncome());
+            userTo.setBirthDate(userFrom.getBirthDate());
+            userTo.setBodyType(userFrom.getBodyType());
+            userTo.setChildren(userFrom.getChildren());
+            userTo.setDescrAboutME(userFrom.getDescrAboutME());
+            userTo.setDescrLookingFor(userFrom.getDescrLookingFor());
+            userTo.setDescrLookingForMore(userFrom.getDescrLookingForMore());
+            userTo.setDrinking(userFrom.getDrinking());
+            userTo.setEducation(userFrom.getEducation());
+            userTo.setEthnicity(userFrom.getEthnicity());
+            userTo.setHairColor(userFrom.getHairColor());
+            userTo.setHeading(userFrom.getHeading());
+            userTo.setHeight(userFrom.getHeight());
+            userTo.setLanguage(userFrom.getLanguage());
+            userTo.setLastActive(userFrom.getLastActive());
+            userTo.setLifestyle(userFrom.getLifestyle());
+            userTo.setNetWorth(userFrom.getNetWorth());
+            userTo.setOccupation(userFrom.getOccupation());
+            userTo.setPics(userFrom.getPics());
+            userTo.setRelationship(userFrom.getRelationship());
+            userTo.setSmoking(userFrom.getSmoking());
+            save(userTo);
+            return true;
+        }catch (Exception e){
+            log.error(e.getStackTrace().toString());
+            return false;
+        }
     }
 }

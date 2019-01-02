@@ -36,4 +36,6 @@ public interface UserService {
     String getClientIpAddr();
 
     Map<String,List<String>> getAllEnumTypes();
+
+    boolean updateUserAsAdminAndSave(Users userFrom);
 }

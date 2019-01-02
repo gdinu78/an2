@@ -98,8 +98,8 @@ public class UserController {
                     Users user = userService.findByUsername(loginUser.getUsername());
                     Set<Location> locSet = user.getLocations();
                     locSet.add(loc);
-                    loginUser.setLocations(locSet);
-                    userService.save(loginUser);
+                    user.setLocations(locSet);
+                    userService.save(user);
                 }
                 respHelper.sendOk(resp, token);
             }catch (AuthenticationException ae){
@@ -136,18 +136,15 @@ public class UserController {
     }
 
     @PostMapping(path="users/updateUser")
-    public void updateUser(@Valid @RequestBody Users user, BindingResult result, HttpServletResponse resp){
-        if(result.hasErrors()){
+    public void updateUser(@Valid @RequestBody Users recUser, BindingResult result, HttpServletResponse resp){
+        if(result.hasErrors() && !(result.getErrorCount()==1 && result.getFieldError().getField().equals("agreedTerms"))){
             respHelper.sendErr(resp, "backErr.login_validation_err", "Registration error: " + result.getAllErrors().toString());
         }else {
-            try {
-//            int intFromReq = Integer.decode(fromReq);
-//            int toFromReq = Integer.decode(toReq);
-                //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
-                List<Users> usersList = userService.findAll();
-                respHelper.sendOk(resp, "");
-            }catch (NumberFormatException n){
-                respHelper.sendErr(resp,"","Users table param is not a number");
+            boolean res = userService.updateUserAsAdminAndSave(recUser);
+            if (res){
+                respHelper.sendOk(resp,"");
+            }else {
+                respHelper.sendErr(resp,"usr_adm_upd_err","Error when updating user as admin");
             }
         }
     }

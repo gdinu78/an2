@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class RespHelper {
+
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public void sendOk(HttpServletResponse resp, Object body){
