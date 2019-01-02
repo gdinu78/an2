@@ -11,6 +11,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usersDetails")
+
+@NamedQuery(
+        name="Users.deleteByUserNamesList", query="delete from Users u where u.username in :unList")
+
 public class Users extends BasicUser {
 
     private ZonedDateTime memberSince;

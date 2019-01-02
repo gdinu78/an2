@@ -300,6 +300,12 @@ export class ContactsService implements Resolve<any>
      */
     deleteContact(contact): void
     {
+        var idArr = [];
+        idArr.push(contact.username);
+        this.backendservice.getResults('/api/users/deleteUsers?unList=' + idArr)
+            .subscribe(response => {
+                var message = response.results;
+            });
         const contactIndex = this.contacts.indexOf(contact);
         this.contacts.splice(contactIndex, 1);
         this.onContactsChanged.next(this.contacts);
@@ -310,14 +316,20 @@ export class ContactsService implements Resolve<any>
      */
     deleteSelectedContacts(): void
     {
+        var idArr = [];
         for ( const contactId of this.selectedContacts )
         {
             const contact = this.contacts.find(_contact => {
                 return _contact.userID === contactId;
             });
+            idArr.push(contact.username);
             const contactIndex = this.contacts.indexOf(contact);
             this.contacts.splice(contactIndex, 1);
         }
+        this.backendservice.getResults('/api/users/deleteUsers?unList=' + idArr)
+            .subscribe(response => {
+                var message = response.results;
+            });
         this.onContactsChanged.next(this.contacts);
         this.deselectContacts();
     }

@@ -8,6 +8,7 @@ import com.social.model.Users;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public interface UserService {
@@ -38,4 +39,6 @@ public interface UserService {
     Map<String,List<String>> getAllEnumTypes();
 
     boolean updateUserAsAdminAndSave(Users userFrom);
+
+    void deleteByUserNamesList(Set<String> ids);
 }

@@ -24,10 +24,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.social.constants.SecurityConstants.HEADER_STRING;
 import static com.social.constants.SecurityConstants.TOKEN_PREFIX;
@@ -121,20 +118,6 @@ public class UserController {
         }
     }
 
-    @GetMapping(path="users/getUser")
-    public void getUserById(@RequestParam("id") String id, HttpServletResponse resp) {
-        try {
-//            int intFromReq = Integer.decode(fromReq);
-//            int toFromReq = Integer.decode(toReq);
-            //List<Users> usersList = userService.findAll(intFromReq,toFromReq);
-            int intId = Integer.decode(id);
-            List<Users> usersList = userService.findAll();
-            respHelper.sendOk(resp, usersList.get(intId));
-        }catch (NumberFormatException n){
-            respHelper.sendErr(resp,"","Users table param is not a number");
-        }
-    }
-
     @PostMapping(path="users/updateUser")
     public void updateUser(@Valid @RequestBody Users recUser, BindingResult result, HttpServletResponse resp){
         if(result.hasErrors() && !(result.getErrorCount()==1 && result.getFieldError().getField().equals("agreedTerms"))){
@@ -191,6 +174,11 @@ public class UserController {
         }else{
             respHelper.sendOk(resp, "");
         }
+    }
+
+    @GetMapping(path="users/deleteUsers")
+    public void deleteUsers(@RequestParam("unList") Set<String> userNamesList, HttpServletRequest req, HttpServletResponse resp){
+    userService.deleteByUserNamesList(userNamesList);
     }
 
     @GetMapping(path="users/getSelectors")

@@ -283,4 +283,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             return false;
         }
     }
+
+    @Override
+    public void deleteByUserNamesList(Set<String> uns){
+        userRepository.deleteByUserNamesList(uns);
+    }
 }
