@@ -27,6 +27,7 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
 
     contacts: any;
     user: any;
+    allSelectors: any;
     dataSource: FilesDataSource | null;
     displayedColumns = ['checkbox', 'avatar', 'name', 'email', 'gender', 'lifecycle', 'rolesList', 'buttons'];
     selectedContacts: any[];
@@ -62,6 +63,7 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         this.dataSource = new FilesDataSource(this._contactsService,this._paginator);
+        this.allSelectors = this._contactsService.allSelectors;
         this._contactsService.onContactsChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(contacts => {

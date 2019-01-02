@@ -23,6 +23,7 @@ export class ContactsService implements Resolve<any>
 
     searchText: string;
     filterBy: string;
+    allSelectors: any;
 
     /**
      * Constructor
@@ -58,7 +59,8 @@ export class ContactsService implements Resolve<any>
 
             Promise.all([
                 this.getContacts(),
-                this.getUserData()
+                this.getUserData(),
+                this.getAllSelectors()
             ]).then(
                 ([files]) => {
 
@@ -260,6 +262,22 @@ export class ContactsService implements Resolve<any>
                     this.getUserData();
                     this.getContacts();
                     resolve(response);
+                });
+        });
+    }
+
+    /**
+     * Get all Enums
+     *
+     * @returns {Promise<any>}
+     */
+    getAllSelectors(): Promise<any>
+    {
+        return new Promise((resolve, reject) => {
+            this.backendservice.getResults('/api/users/getSelectors')
+                .subscribe(response => {
+                    this.allSelectors = response.results;
+                    resolve(this.allSelectors);
                 });
         });
     }
