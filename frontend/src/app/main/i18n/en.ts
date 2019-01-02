@@ -18,7 +18,9 @@ export const locale = {
             'login_no_account': 'Authentication failed',
             'login_validation_err': 'Login information is invalid',
             'reg_pass_no_match': 'Passwords must match',
-            'reg_validation_err': 'Registration information is invalid'
+            'reg_validation_err': 'Registration information is invalid',
+            'user_exists': 'User allready registered',
+            'pass_ng_complex': 'Password must have min 6 chars'
         },
         'Login': {
             'acc_login': 'LOGIN TO YOUR ACCOUNT',

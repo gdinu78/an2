@@ -53,22 +53,28 @@ public class UserController {
         if(result.hasErrors()){
             respHelper.sendErr(resp, "backErr.reg_validation_err", "Registration error: " + result.getAllErrors().toString());
         }else {
-            if (user.getPassword().equals(user.getPasswordConfirm())) {
-                if(userService.findByUsername(user.getUsername())!=null) {
-                    Roles userRole = userService.findByRoleName(RolEnum.USER);
-                    user.setRoles(Collections.singleton(userRole));
-                    user.setName(user.getName());
-                    user.setLifecycle(LifeCycle.APPROVED);
-                    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-                    Location loc = userService.getClientLocation();
-                    if (loc != null) {
-                        user.setLocations(Collections.singleton(loc));
+            if(user.getPassword()==null || user.getPassword().length()<6) {
+                if (user.getPassword().equals(user.getPasswordConfirm())) {
+                    if (userService.findByUsername(user.getUsername()) == null) {
+                        Roles userRole = userService.findByRoleName(RolEnum.USER);
+                        user.setRoles(Collections.singleton(userRole));
+                        user.setName(user.getName());
+                        user.setLifecycle(LifeCycle.APPROVED);
+                        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                        Location loc = userService.getClientLocation();
+                        if (loc != null) {
+                            user.setLocations(Collections.singleton(loc));
+                        }
+                        userService.save(user);
+                        respHelper.sendOk(resp, "");
+                    } else {
+                        respHelper.sendErr(resp, "backErr.user_exists", "Registration error: User allready exists");
                     }
-                    userService.save(user);
-                    respHelper.sendOk(resp, "");
+                } else {
+                    respHelper.sendErr(resp, "backErr.reg_pass_no_match", "Registration error: Password not same with confirmation password");
                 }
             } else {
-                respHelper.sendErr(resp, "backErr.reg_pass_no_match", "Registration error: Password not same with confirmation password");
+                respHelper.sendErr(resp, "backErr.pass_ng_complex", "Registration error: Password not complex");
             }
         }
     }

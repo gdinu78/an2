@@ -12,7 +12,9 @@ export const locale = {
             'login_no_account': 'Autentificarea a esuat',
             'login_validation_err': 'Informatiile de login nu sunt valide',
             'reg_pass_no_match': 'Parolele trebuie sa coincida',
-            'reg_validation_err': 'Informatiile de inregistrare nu sunt valide'
+            'reg_validation_err': 'Informatiile de inregistrare nu sunt valide',
+            'user_exists': 'Utilizatorul este deja inregistrat',
+            'pass_ng_complex': 'Parola trebuie sa contina min 6 caractere'
         },
         'Login': {
             'acc_login': 'LOGIN IN CONTUL TAU',

@@ -30,8 +30,8 @@ public class BasicUser {
     @Size(min = 4, max = 30)
     private String name;
     @Column(nullable = false)
-    @NotNull
-    @Size(min = 6, max = 100)
+    //@NotNull
+    //@Size(min = 6, max = 100)
     private String password;
     @Column
     private String passwordConfirm;
