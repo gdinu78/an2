@@ -89,11 +89,12 @@ public class UserController {
                 final String token = tokenHelper.generateToken(authentication);
                 Location loc = userService.getClientLocation();
                 if(loc!=null) {
-                    Set<Location> locSet = loginUser.getLocations();
+                    Users user = userService.findByUsername(loginUser.getUsername());
+                    Set<Location> locSet = user.getLocations();
                     locSet.add(loc);
                     loginUser.setLocations(locSet);
+                    userService.save(loginUser);
                 }
-                userService.save(loginUser);
                 respHelper.sendOk(resp, token);
             }catch (AuthenticationException ae){
                 respHelper.sendErr(resp, "backErr.login_no_account","Account does not exists");
